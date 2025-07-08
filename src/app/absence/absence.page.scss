@@ -1,0 +1,296 @@
+/*
+  Styles globaux pour la page de gestion des absences.
+*/
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #8aac64); // Couleur de fond de la barre de titre
+    --color: var(--ion-color-primary-contrast, #ffffff); // Couleur du texte
+
+    ion-title {
+      color: var(--ion-color-primary-contrast, #ffffff);
+    }
+
+    ion-back-button {
+      --color: var(--ion-color-primary-contrast, #ffffff);
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light, #f4f5f8); // Couleur de fond du contenu
+
+  .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  h2 {
+    color: var(--ion-color-dark, #222428); // Couleur du titre "Suivi des Absences"
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  // Styles pour les onglets de navigation (Nav Tabs)
+  .nav-tabs {
+    border-bottom: 2px solid var(--ion-color-medium-tint, #d3d3d3); // Bordure sous les onglets
+
+    .nav-item {
+      .nav-link {
+        color: var(--ion-color-medium, #92949c); // Couleur du texte des onglets inactifs
+        border: 1px solid transparent;
+        border-bottom-color: transparent; // Supprime la bordure inférieure pour les onglets inactifs
+        border-radius: 8px 8px 0 0;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+
+        &:hover {
+          color: var(--ion-color-primary, #c4ddf5);
+          border-color: var(--ion-color-light-shade, #e6e6e6) var(--ion-color-light-shade, #e6e6e6) var(--ion-color-medium-tint, #d3d3d3);
+        }
+
+        &.active {
+          color: var(--ion-color-primary, #3880ff); // Couleur du texte de l'onglet actif
+          background-color: var(--ion-color-light-contrast, #ffffff); // Fond de l'onglet actif
+          border-color: var(--ion-color-medium-tint, #d3d3d3) var(--ion-color-medium-tint, #d3d3d3) var(--ion-color-light-contrast, #ffffff); // Bordures de l'onglet actif
+          border-bottom-color: var(--ion-color-light-contrast, #ffffff); // Important pour "soulever" l'onglet
+        }
+      }
+    }
+  }
+
+  // Styles pour les cartes de contenu (Card)
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); // Ombre plus prononcée pour les cartes
+    border: none; // Supprime la bordure par défaut de Bootstrap
+    background-color: var(--ion-color-light-contrast, #ffffff); // Fond des cartes
+
+    .card-body {
+      padding: 25px;
+    }
+
+    .card-title {
+      color: var(--ion-color-dark, #222428);
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.25rem;
+    }
+
+    // Styles pour les labels de formulaire
+    .form-label {
+      color: var(--ion-color-dark, #222428);
+      font-weight: 500;
+      margin-bottom: 1px;
+    }
+
+    // Styles pour les sélecteurs et champs de date
+    .form-select,
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid var(--ion-color-medium, #92949c);
+      padding: 10px 15px;
+      font-size: 1rem;
+      color: var(--ion-color-dark, #222428);
+      background-color: var(--ion-color-light-contrast, #ffffff);
+
+      &:focus {
+        border-color: var(--ion-color-primary, #3880ff);
+        box-shadow: 0 0 0 0.25rem rgba(56, 128, 255, 0.25);
+        outline: none;
+      }
+    }
+
+    // Styles pour les tables
+    .table-responsive {
+      margin-top: 20px;
+
+      .table {
+        min-width: 1110px; // Assure une largeur minimale pour le défilement horizontal si nécessaire
+        border-collapse: separate;
+        border-spacing: 0; // Important pour les coins arrondis si on les applique à la table elle-même
+        border-radius: 8px;
+        overflow: hidden; // Cache le débordement si la table a des coins arrondis
+        
+        thead {
+          background-color: var(--ion-color-primary-tint, #8aac64); // Fond de l'en-tête de table
+          color: var(--ion-color-primary-contrast, #ffffff);
+
+          th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--ion-color-primary-shade, #3171e0); // Bordure sous l'en-tête
+          }
+        }
+
+        tbody {
+          tr {
+            background-color: var(--ion-color-light-contrast, #ffffff);
+            border-bottom: 1px solid var(--ion-color-light-shade, #e6e6e6); // Séparateur entre les lignes
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            td,
+            th {
+              padding: 10px 15px;
+              color: var(--ion-color-dark, #222428);
+              vertical-align: middle; // Aligne verticalement le contenu au centre
+            }
+
+            // Styles pour les radios, checkboxes et switchs
+            .form-check {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%; // Pour centrer les radios/checkboxes verticalement dans la cellule
+
+              .form-check-input {
+                margin-top: 0; // Réinitialise la marge supérieure par défaut de Bootstrap
+              }
+            }
+
+            .form-control-sm {
+              padding: 6px 10px;
+              font-size: 0.875rem;
+              border-radius: 6px;
+            }
+
+            // Couleurs pour statut Absent/Présent dans l'historique
+            .text-danger {
+              color: var(--ion-color-danger, #eb445a) !important;
+            }
+            .text-success {
+              color: var(--ion-color-success, #28ba62) !important;
+            }
+            .fw-bold {
+              font-weight: 700 !important;
+            }
+          }
+        }
+      }
+    }
+
+    // Bouton d'enregistrement
+    .btn-primary {
+      --background: var(--ion-color-primary, #3880ff);
+      --background-activated: var(--ion-color-primary-shade, #3171e0);
+      --color: var(--ion-color-primary-contrast, #ffffff);
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px); // Petit effet de soulèvement au survol
+        box-shadow: 0 6px 15px rgba(56, 128, 255, 0.3); // Ombre pour l'effet
+      }
+    }
+  }
+}
+
+/*
+  Media Queries pour l'ajustement responsif
+*/
+
+// Ajustements pour les petits écrans (tablettes et téléphones)
+@media (max-width: 767.98px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .nav-tabs {
+    flex-wrap: wrap; // Permet aux onglets de passer à la ligne si l'écran est trop petit
+    justify-content: center; // Centre les onglets
+    .nav-item {
+      width: 100%; // Chaque onglet prend toute la largeur sur mobile
+      margin-bottom: 5px; // Espacement entre les onglets
+      .nav-link {
+        text-align: center;
+        padding: 10px 15px;
+        font-size: 0.95rem;
+        border-radius: 8px !important; // Coins arrondis complets pour les onglets sur mobile
+        &.active {
+          border-bottom-color: var(--ion-color-medium-tint, #d3d3d3) !important; // Garde la bordure en bas pour l'actif
+        }
+      }
+    }
+  }
+
+  .card {
+    .card-body {
+      padding: 15px; // Réduit le padding des cartes
+    }
+    .card-title {
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .form-select,
+    .form-control {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+
+    .table-responsive {
+      overflow-x: auto; // Permet le défilement horizontal des tables
+      -webkit-overflow-scrolling: touch; // Améliore le défilement sur iOS
+
+      .table {
+        min-width: 550px; // Assure que la table reste lisible
+
+        thead th {
+          padding: 8px 10px;
+          font-size: 0.85rem;
+        }
+
+        tbody td,
+        tbody th {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+
+        .form-control-sm {
+          font-size: 0.75rem;
+          padding: 4px 8px;
+        }
+      }
+    }
+
+    .btn-primary {
+      width: 100%; // Bouton pleine largeur sur mobile
+      padding: 10px 15px;
+      font-size: 1rem;
+    }
+  }
+}
+
+// Ajustements pour les très petits écrans (téléphones portrait)
+@media (max-width: 575.98px) {
+  .container {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .row.g-3 {
+    margin-left: 0;
+    margin-right: 0;
+    > div {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

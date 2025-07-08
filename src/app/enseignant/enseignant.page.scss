@@ -1,0 +1,170 @@
+/*
+  Styles globaux pour la page de gestion des enseignants.
+*/
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #70a352); // Couleur de fond de la barre de titre
+    --color: var(--ion-color-primary-contrast, #bee99a); // Couleur du texte
+  }
+
+  ion-title {
+    color: var(--ion-color-primary-contrast, #ffffff);
+  }
+
+  ion-back-button {
+    --color: var(--ion-color-primary-contrast, #446e2b);
+  }
+
+  ion-buttons[slot="end"] {
+    ion-button {
+      --color: var(--ion-color-primary-contrast, #6b834b); // Couleur de l'icône "Ajouter"
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light, #bddbe0); // Couleur de fond du contenu
+
+  .container {
+    padding-top: 18px; // Espacement en haut du conteneur
+  }
+
+  h2 {
+    color: var(--ion-color-dark, #222428); // Couleur du titre "Liste des Enseignants"
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .btn-success {
+    --background: var(--ion-color-success, #28ba62);
+    --background-activated: var(--ion-color-success-shade, #24a156);
+    --color: var(--ion-color-success-contrast, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+
+    ion-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .input-group {
+    margin-bottom: 25px;
+
+    .form-control {
+      border-radius: 8px 0 0 8px;
+      border: 4px solid var(--ion-color-medium, #92949c);
+      padding: 10px 15px;
+      &:focus {
+        border-color: var(--ion-color-primary, #3880ff);
+        box-shadow: 0 0 0 0.1rem rgba(56, 128, 255, 0.25);
+      }
+    }
+
+    .btn-outline-secondary {
+      --border-color: var(--ion-color-medium, #92949c);
+      --color: var(--ion-color-dark, #222428);
+      border-radius: 0 5px 5px 0;
+      padding: 10px 15px;
+      &:hover {
+        --background: var(--ion-color-light-shade, #dae1e7);
+      }
+    }
+  }
+
+  .table-responsive {
+    margin-bottom: 25px;
+
+    .table {
+      min-width: 1250px; // S'assure que la table ne soit pas trop petite sur mobile
+      border-collapse: separate;
+      border-spacing: 2;
+      border-radius: 20px; // Bordures arrondies pour la table
+      overflow: hidden; // Cache le débordement des coins arrondis
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // Ombre portée pour un effet de carte
+
+      thead {
+        tr {
+          background-color: var(--ion-color-primary-tint, #70a352); // Fond de l'en-tête de table
+          color: var(--ion-color-primary-contrast, #ffffff);
+
+          th {
+            padding: 25px 20px;
+            text-align: left;
+            font-weight: 800;
+            &:first-child {
+              border-top-left-radius: 8px;
+            }
+            &:last-child {
+              border-top-right-radius: 8px;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          background-color: var(--ion-color-light-contrast, #ffffff); // Fond des lignes de la table
+          border-bottom: 1px solid var(--ion-color-light-shade, #e6e6e6);
+
+          &:last-child {
+            border-bottom: none; // Pas de bordure pour la dernière ligne
+          }
+
+          &:hover {
+            background-color: var(--ion-color-light-tint, #f9f9f9); // Changement de couleur au survol
+          }
+
+          td,
+          th {
+            padding: 20px 20px;
+            color: var(--ion-color-dark, #222428); // Couleur du texte des cellules
+          }
+
+          .btn-info {
+            --background: var(--ion-color-tertiary, #010107);
+            --background-activated: var(--ion-color-tertiary-shade, #4854e0);
+            --color: var(--ion-color-tertiary-contrast, #ffffff);
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 4px;
+          }
+
+          .btn-danger {
+            --background: var(--ion-color-danger, #eb445a);
+            --background-activated: var(--ion-color-danger-shade, #cb3b4c);
+            --color: var(--ion-color-danger-contrast, #ffffff);
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 30px; // Espacement au-dessus de la pagination
+
+    .page-item {
+      .page-link {
+        color: var(--ion-color-primary, #101011);
+        border: 3px solid var(--ion-color-primary, #3880ff);
+        border-radius: 5px;
+        margin: 2 5px;
+        padding: 8px 15px;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none; // Supprime le soulignement par défaut des liens
+
+        &:hover {
+          background-color: var(--ion-color-primary-tint, #191a1b);
+          color: var(--ion-color-primary-contrast, #ffffff);
+        }
+      
+      }
+   }
+      }
+         }

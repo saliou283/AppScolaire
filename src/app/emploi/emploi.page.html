@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Emplois du Temps</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openManageTimetableModal()">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span class="d-none d-md-inline ms-2">Gérer</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container mt-4">
+
+    <h2 class="mb-4">Consulter les Emplois du Temps</h2>
+
+    <div class="row mb-3 g-2">
+      <div class="col-md-6">
+        <select class="form-select" [(ngModel)]="selectedView" (change)="changeView()">
+          <option value="class">Par Filiere</option>
+          <option value="teacher">Par Enseignant</option>
+        </select>
+      </div>
+      <div class="col-md-6" *ngIf="selectedView === 'class'">
+        <select class="form-select" [(ngModel)]="selectedClass" (change)="loadTimetable()">
+          <option value="">Sélectionner une Filiere</option>
+          <option *ngFor="let classOption of availableClasses" [value]="classOption">{{ classOption }}</option>
+        </select>
+      </div>
+      <div class="col-md-6" *ngIf="selectedView === 'teacher'">
+        <select class="form-select" [(ngModel)]="selectedTeacher" (change)="loadTimetable()">
+          <option value="">Sélectionner un enseignant</option>
+          <option *ngFor="let teacherOption of availableTeachers" [value]="teacherOption.id">{{ teacherOption.firstName }} {{ teacherOption.lastName }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="timetable.length > 0" class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Heure</th>
+            <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let hour of hoursOfDay">
+            <th>{{ hour }}</th>
+            <td *ngFor="let day of daysOfWeek">
+              <div *ngIf="getLesson(day, hour) as lesson"
+                   [ngClass]="{'bg-primary text-white': lesson.type === 'Cours', 'bg-info text-white': lesson.type === 'TD', 'bg-warning': lesson.type === 'TP'}"
+                   class="p-2 rounded">
+                <strong>{{ lesson.subject }}</strong><br>
+                <small>{{ lesson.teacherName }}</small><br>
+                <small>Salle: {{ lesson.room }}</small>
+              </div>
+              <div *ngIf="!getLesson(day, hour)" class="text-muted">
+            
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="timetable.length === 0 && (selectedClass || selectedTeacher)" class="alert alert-warning mt-3" role="alert">
+      Aucun emploi du temps disponible pour la sélection.
+    </div>
+    <div *ngIf="!selectedClass && !selectedTeacher" class="alert alert-info mt-3" role="alert">
+      Veuillez sélectionner une classe ou un enseignant pour afficher l'emploi du temps.
+    </div>
+
+  </div>
+</ion-content>

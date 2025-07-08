@@ -1,0 +1,125 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestion des Étudiants</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="openAddStudentModal">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Liste des Étudiants</h2>
+      <button type="button" class="btn btn-primary d-none d-md-block" id="openAddStudentModalDesktop">
+        <ion-icon name="person-add-outline" class="me-2"></ion-icon> Ajouter un étudiant
+      </button>
+    </div>
+
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Rechercher un étudiant..." aria-label="Rechercher un étudiant">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Rechercher</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Date de Naissance</th>
+            <th scope="col">Classe</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Dupont</td>
+            <td>Jean</td>
+            <td>15/03/2005</td>
+            <td>Terminale S</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Martin</td>
+            <td>Sophie</td>
+            <td>22/07/2006</td>
+            <td>Première L</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link">Précédent</a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Suivant</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStudentModalLabel">Ajouter/Modifier un Étudiant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="nomEtudiant" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="nomEtudiant" required>
+            </div>
+            <div class="mb-3">
+              <label for="prenomEtudiant" class="form-label">Prénom</label>
+              <input type="text" class="form-control" id="prenomEtudiant" required>
+            </div>
+            <div class="mb-3">
+              <label for="dateNaissance" class="form-label">Date de Naissance</label>
+              <input type="date" class="form-control" id="dateNaissance">
+            </div>
+            <div class="mb-3">
+              <label for="classeEtudiant" class="form-label">Classe</label>
+              <select class="form-select" id="classeEtudiant">
+                <option selected disabled>Choisir une classe...</option>
+                <option value="1">Sixième A</option>
+                <option value="2">Cinquième B</option>
+                <option value="3">Terminale S</option>
+              </select>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

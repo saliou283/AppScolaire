@@ -1,0 +1,189 @@
+/* Importez animate.css pour les animations si ce n'est pas déjà fait */
+
+/* --- Styles Généraux et Arrière-plan --- */
+.homepage-background {
+  // Dégradé de couleurs en arrière-plan pour un look moderne
+  // J'utilise les variasbles Ionic pour rester cohérent avec votre thème
+  --background: linear-gradient(to bottom right, var(--ion-color-primary, #83dacb), var(--ion-color-secondary, #1d526b));
+  // Vous pouvez ajuster les couleurs ou utiliser une image de fond subtile si vous préférez :
+  // --background: url('/assets/images/background.jpg') no-repeat center center / cover;
+  // filter: brightness(0.8); // Assombrir l'image si le texte est clair
+}
+
+/* --- Barre d'En-tête (Toolbar) --- */
+ion-toolbar {
+  --background: var(--ion-color-primary, #8aac64); // Couleur de fond de la barre d'outils
+  --color: #fff; // Couleur du texte et des icônes
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Ombre subtile pour la profondeur
+}
+
+/* --- Section d'Introduction (Hero Section) --- */
+.hero-section {
+  padding: 40px 20px;
+  color: #fff; // Couleur du texte
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15); // Surcouche semi-transparente pour le texte sur le dégradé
+  border-radius: 15px; // Coins arrondis
+  margin-bottom: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); // Ombre plus prononcée pour la profondeur
+  backdrop-filter: blur(5px); // Effet de flou derrière la section (look "verre dépoli")
+  -webkit-backdrop-filter: blur(5px); // Pour compatibilité Safari
+
+  .app-logo {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 15px;
+    // Animation de pulsation pour le logo
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  h1 {
+    font-size: 2.5em; // Taille de police plus grande
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); // Ombre pour le texte
+  }
+
+  p {
+    font-size: 1.2em;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 25px auto; // Centrer le paragraphe et ajouter de l'espace
+  }
+
+  ion-button {
+    --background: var(--ion-color-tertiary, #a6c77c); // Couleur du bouton "Commencer"
+    --background-activated: var(--ion-color-tertiary-shade, #85cc85); // Couleur au clic
+    --border-radius: 30px; // Bouton pill-shaped
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); // Ombre pour le bouton
+    font-weight: 600; // Gras
+    font-size: 1.1em;
+    padding: 15px 35px;
+    transition: transform 0.3s ease; // Animation au survol
+
+    &:hover {
+      transform: translateY(-3px); // Légère élévation au survol
+    }
+  }
+}
+
+/* --- Cartes de Fonctionnalités (Feature Cards) --- */
+.feature-cards {
+  padding-top: 20px;
+
+  ion-card {
+    border-radius: 20px; // Coins plus arrondis
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); // Ombre plus prononcée et douce
+    transition: transform 0.3s ease, box-shadow 0.3s ease; // Transition pour le survol
+    cursor: pointer;
+    margin-bottom: 25px; // Espacement entre les cartes
+    height: 100%; // Toutes les cartes ont la même hauteur
+    background: #c4ddf5; // Fond blanc pour les cartes
+
+    &:hover {
+      transform: translateY(-10px) rotateZ(1deg); // Élévation et légère rotation au survol
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18); // Ombre plus intense au survol
+    }
+
+    ion-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 20px 10px 20px; // Espacement ajusté
+    }
+
+    .card-icon {
+      font-size: 4.5em; // Icônes plus grandes
+      margin-bottom: 12px;
+      // Ajout d'un dégradé aux icônes pour un look moderne
+      background: -webkit-linear-gradient(45deg, var(--ion-color-primary), var(--ion-color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    // Couleurs d'icônes spécifiques pour chaque carte (optionnel mais ajoute du dynamisme)
+    ion-col:nth-child(1) .card-icon { background: -webkit-linear-gradient(45deg, var(--ion-color-primary, #a0cc77), var(--ion-color-secondary, #3dc2ff)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } // Étudiants
+    ion-col:nth-child(2) .card-icon { background: -webkit-linear-gradient(45deg, var(--ion-color-success, #2dd36f), #6ce07a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } // Enseignants
+    ion-col:nth-child(3) .card-icon { background: -webkit-linear-gradient(45deg, var(--ion-color-warning, #ffc409), #ffeb3b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } // Notes
+    ion-col:nth-child(4) .card-icon { background: -webkit-linear-gradient(45deg, var(--ion-color-danger, #eb445a), #f08390); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } // Absences
+    ion-col:nth-child(5) .card-icon { background: -webkit-linear-gradient(45deg, var(--ion-color-tertiary, #5260ff), #7b88ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } // Emplois
+    ion-col:nth-child(6) .card-icon { background: -webkit-linear-gradient(45deg, var(--ion-color-dark, #232822), #55585f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } // Délibérations
+
+
+    ion-card-title {
+      font-size: 1.4em;
+      font-weight: 700; // Plus gras
+      color: #222;
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    ion-card-content {
+      font-size: 1em;
+      color: #666;
+      text-align: center;
+      padding: 15px 25px 25px 25px; // Espacement ajusté
+    }
+  }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 767px) { // Pour les tablettes et petits écrans
+  .hero-section {
+    padding: 30px 15px;
+    h1 {
+      font-size: 2em;
+    }
+    p {
+      font-size: 1em;
+    }
+    ion-button {
+      padding: 12px 25px;
+      font-size: 1em;
+    }
+  }
+
+  .feature-cards ion-card {
+    margin-bottom: 20px;
+    .card-icon {
+      font-size: 4em;
+    }
+    ion-card-title {
+      font-size: 1.25em;
+    }
+    ion-card-content {
+      font-size: 0.95em;
+    }
+  }
+}
+
+@media (max-width: 575px) { // Pour les téléphones mobiles
+  .hero-section {
+    padding: 25px 10px;
+    h1 {
+      font-size: 1.7em;
+    }
+    p {
+      font-size: 0.95em;
+    }
+  }
+
+  .feature-cards ion-card {
+    margin-bottom: 15px;
+    .card-icon {
+      font-size: 3.5em;
+    }
+    ion-card-title {
+      font-size: 1.15em;
+    }
+    ion-card-content {
+      font-size: 0.9em;
+    }
+  }
+}

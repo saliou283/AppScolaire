@@ -1,0 +1,107 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Gestion Scolaire</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToProfilePage()">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding homepage-background">
+  <div class="hero-section ion-text-center animate__animated animate__fadeIn">
+    <h1>Bienvenue sur votre espace de gestion scolaire !</h1>
+    <p>Simplifiez la gestion quotidienne de votre université.</p>
+    <ion-button size="large" (click)="goToLoginPage()" class="ion-margin-top">
+      Commencer
+    </ion-button>
+  </div>
+
+  <div class="container feature-cards">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title> 
+                <a href="etudiant">Gestion des Étudiants</a>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Ajoutez, modifiez et consultez les informations des étudiants.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title> 
+                <a href="enseignant">Gestion des Tuteurs</a>
+              </ion-card-title> 
+            </ion-card-header>
+            <ion-card-content>
+              Gérez les profils et les assignations des enseignants.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title> 
+                 <a href="note">Gestion des Notes</a>
+                </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Consultation et gestion des notes.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title>
+                <a href="absence">Gestion des Absences</a>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Suivez et gérez les absences des élèves et du personnel.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title>
+                <a href="emploi">Emplois du Temps</a>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Consultez et organisez les emplois du temps.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
+          <ion-card >
+            <ion-card-header>
+              <ion-card-title>
+                <a href="deliberation">Délibérations & Bulletins</a>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Accédez aux processus de délibération et aux bulletins scolaires.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

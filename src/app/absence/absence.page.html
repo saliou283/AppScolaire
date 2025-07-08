@@ -1,0 +1,302 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestion des Absences</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container mt-4">
+
+    <h2>Suivi des Absences</h2>
+
+    <ul class="nav nav-tabs mb-4" id="absenceTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="mark-tab" data-bs-toggle="tab" data-bs-target="#mark-absences" type="button" role="tab" aria-controls="mark-absences" aria-selected="true">Marquer les Absences</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#absence-history" type="button" role="tab" aria-controls="absence-history" aria-selected="false">Historique des Absences</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="absenceTabsContent">
+      <div class="tab-pane fade show active" id="mark-absences" role="tabpanel" aria-labelledby="mark-tab">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Marquer les Absences du Jour</h5>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="selectClasseAbsence" class="form-label">Classe</label>
+                <select class="form-select" id="selectClasseAbsence">
+                  <option selected disabled>Choisir...</option>
+                  <option value="1">MIC</option>
+                  <option value="2">IDA</option>
+                  <option value="3">CD</option>
+                  <option value="4">MAI</option>
+                  <option value="5">AGN</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="dateAbsence" class="form-label">Date</label>
+                <input type="date" class="form-control" id="dateAbsence" value="2025-06-29">
+              </div>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom & Prénom</th>
+                    <th scope="col">Présent</th>
+                    <th scope="col">Absent</th>
+                    <th scope="col">Justifié</th>
+                    <th scope="col">Motif (si absent)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Awa Faye</td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye" id="awaFayePresent" checked>
+                        <label class="form-check-label" for="awaFayePresent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye" id="awaFayeAbsent">
+                        <label class="form-check-label" for="awaFayeAbsent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="awaFayeJustified">
+                        <label class="form-check-label" for="awaFayeJustified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="Motif de l'absence"></td>
+                  </tr>
+                  <tr>
+                    <td>Ngor Diouf(2)</td> <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye2" id="awaFaye2Present" checked>
+                        <label class="form-check-label" for="awaFaye2Present"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye2" id="awaFaye2Absent">
+                        <label class="form-check-label" for="awaFaye2Absent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="awaFaye2Justified">
+                        <label class="form-check-label" for="awaFaye2Justified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="Motif de l'absence"></td>
+                  </tr>
+                  <tr>
+                    <td>Fallou Sene (3)</td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye3" id="awaFaye3Present" checked>
+                        <label class="form-check-label" for="awaFaye3Present"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye3" id="awaFaye3Absent">
+                        <label class="form-check-label" for="awaFaye3Absent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="awaFaye3Justified">
+                        <label class="form-check-label" for="awaFaye3Justified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="Motif de l'absence"></td>
+                  </tr>
+                  <tr>
+                    <td>Maman Loum (4)</td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye4" id="awaFaye4Present" checked>
+                        <label class="form-check-label" for="awaFaye4Present"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye4" id="awaFaye4Absent">
+                        <label class="form-check-label" for="awaFaye4Absent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="awaFaye4Justified">
+                        <label class="form-check-label" for="awaFaye4Justified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="Motif de l'absence"></td>
+                  </tr>
+                  <tr>
+                    <td>Abdou Pouye (5)</td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye5" id="awaFaye5Present" checked>
+                        <label class="form-check-label" for="awaFaye5Present"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceAwaFaye5" id="awaFaye5Absent">
+                        <label class="form-check-label" for="awaFaye5Absent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="awaFaye5Justified">
+                        <label class="form-check-label" for="awaFaye5Justified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="Motif de l'absence"></td>
+                  </tr>
+                  <tr>
+                    <td>Nogay Ngom</td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceNgorDiouf" id="ngorDioufPresent" checked>
+                        <label class="form-check-label" for="ngorDioufPresent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceNgorDiouf" id="ngorDioufAbsent">
+                        <label class="form-check-label" for="ngorDioufAbsent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="ngorDioufJustified">
+                        <label class="form-check-label" for="ngorDioufJustified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="Motif de l'absence"></td>
+                  </tr>
+                  <tr>
+                    <td>Adama Niang 
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceFallouSene" id="fallouSenePresent">
+                        <label class="form-check-label" for="fallouSenePresent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="absenceFallouSene" id="fallouSeneAbsent" checked>
+                        <label class="form-check-label" for="fallouSeneAbsent"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="fallouSeneJustified" checked>
+                        <label class="form-check-label" for="fallouSeneJustified"></label>
+                      </div>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" value="Maladie"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-center mt-3">
+              <button class="btn btn-primary btn-lg">Enregistrer les Absences</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="absence-history" role="tabpanel" aria-labelledby="history-tab">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Historique des Absences par Étudiant</h5>
+            <div class="mb-3">
+              <label for="selectStudentHistory" class="form-label">Sélectionner un Étudiant</label>
+              <select class="form-select" id="selectStudentHistory">
+                <option selected disabled>Choisir un étudiant...</option>
+                <option value="1">Awa Faye</option>
+                <option value="2">Ngor Diouf</option>
+                <option value="2">Fallou Sene</option>
+                <option value="2">Maman Loum</option>
+                <option value="2">Abdou Pouye</option>
+                <option value="2">Nogay Ngom</option>
+                <option value="2">Adama Niang </option>
+              </select>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-bordered align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Matière / Période</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Motif</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>20-06-2025</td>
+                    <td>Programmation (8h-9h)</td>
+                    <td class="text-danger fw-bold">Absent</td>
+                    <td>Maladie</td>
+                  </tr>
+                  <tr>
+                    <td>10-06-2025</td>
+                    <td>Algorithme (11h-13h)</td>
+                    <td class="text-success fw-bold">Présent</td>
+                    <td></td>
+                  </tr>
+                   <tr>
+                    <td>14-06-2025</td>
+                    <td>Infographie (14h-16h)</td>
+                    <td class="text-success fw-bold">Présent</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>23-06-2025</td>
+                    <td>Communication (10h-12h)</td>
+                    <td class="text-success fw-bold">Présent</td>
+                    <td></td>
+                  </tr>
+
+                    <tr>
+                    <td>14-06-2025</td>
+                    <td>Droit Cons (14h-16h)</td>
+                    <td class="text-success fw-bold">Présent</td>
+                    <td></td>
+                  </tr>
+                    <tr>
+                    <td>14-06-2025</td>
+                    <td>Droit Cons (8h-10h)</td>
+                    <td class="text-danger fw-bold">Absent</td>
+                    <td>Audiance</td>
+                  </tr>
+                   <tr>
+                    <td>18-06-2025</td>
+                    <td>Algorithme (10h-12h)</td>
+                    <td class="text-success fw-bold">Présent</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

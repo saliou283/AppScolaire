@@ -1,0 +1,158 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestion des Notes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container mt-4">
+
+    <h2>Saisie et Consultation des Notes</h2>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <label for="selectClasse" class="form-label">Sélectionner une Filière</label>
+        <select class="form-select" id="selectClasse">
+          <option selected disabled>Choisir...</option>
+          <option value="1">IDA</option>
+          <option value="2">MIC</option>
+          <option value="3">CD</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="selectMatiere" class="form-label">Sélectionner une Matière</label>
+        <select class="form-select" id="selectMatiere">
+          <option selected disabled>Choisir...</option>
+          <option value="1"></option>
+          <option value="2">Algorithme</option>
+          <option value="3">Communication</option>
+          <option value="3">Infographie</option>
+        </select>
+      </div>
+      <div class="col-12 text-end">
+        <button class="btn btn-primary">Afficher les notes</button>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-header">
+        Notes pour : <span class="fw-bold">Licence 3 - IDA</span>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Nom & Prénom</th>
+                <th scope="col">Note 1 (Examen 1)</th>
+                <th scope="col">Note 2 (Devoir)</th>
+                <th scope="col">Note 3 (Projet)</th>
+                <th scope="col">Moyenne</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> Saliou Pouye</td>
+                <td><input type="number" class="form-control form-control-sm" value="15" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="18" min="0" max="20"></td>
+                <td><span class="fw-bold">15.11</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Mame DIARRA Yade</td>
+                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="14" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
+                <td><span class="fw-bold">12.67</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Amy Faye</td>
+                <td><input type="number" class="form-control form-control-sm" value="13" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
+                <td><span class="fw-bold">14.17</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Mammadou Faye</td>
+                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="13" min="0" max="20"></td>
+                <td><span class="fw-bold">12.97</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Khady Gackou</td>
+                <td><input type="number" class="form-control form-control-sm" value="15" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="14" min="0" max="20"></td>
+                <td><span class="fw-bold">15.67</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Khadidiatou Beye</td>
+                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="16" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
+                <td><span class="fw-bold">11.67</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Mbarca Sarr</td>
+                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="14" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="13" min="0" max="20"></td>
+                <td><span class="fw-bold">11.67</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Babacar Mbaye</td>
+                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
+                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
+                <td><span class="fw-bold">11.67</span></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
+                </td>
+              </tr>
+              <tr>
+                
+              </tbody>
+          </table>
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-success btn-lg">Valider toutes les notes</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+      <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+      <div>
+        Notes enregistrées avec succès !
+      </div>
+    </div>
+
+  </div>
+</ion-content>

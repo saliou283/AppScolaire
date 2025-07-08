@@ -1,0 +1,176 @@
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #8aac64);
+    --color: var(--ion-color-primary-contrast, #fff);
+
+    ion-title {
+      color: var(--ion-color-primary-contrast, #fff);
+    }
+
+    ion-back-button {
+      --color: var(--ion-color-primary-contrast, #fff);
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light, #dce2db25);
+
+  .container {
+    background-color: var(--ion-color-light, #8aac64);
+    padding-bottom: 20px; // Add some padding at the bottom
+
+    h2 {
+      color: var(--ion-color-dark, #222);
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .row {
+      margin-bottom: 20px;
+
+      .form-label {
+        color: var(--ion-color-medium, #050505);
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .form-select,
+      .form-control {
+        border-radius: 8px;
+        border: 1px solid var(--ion-color-medium-tint, #814b4b);
+        padding: 10px 12px;
+        &:focus {
+          border-color: var(--ion-color-primary, #9ba4b4);
+          box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb, 56, 128, 255), 0.25);
+        }
+      }
+
+      .btn-primary {
+        --background: var(--ion-color-primary, #3880ff);
+        --background-activated: var(--ion-color-primary-shade, #3171e0);
+        --background-focused: var(--ion-color-primary-shade, #3171e0);
+        --background-hover: var(--ion-color-primary-tint, #4c8aff);
+        --color: var(--ion-color-primary-contrast, #fff);
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+    }
+
+    .card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+      .card-header {
+        background-color: var(--ion-color-light-shade, #26bd83);
+        color: var(--ion-color-dark, #222);
+        font-weight: 500;
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--ion-color-medium-tint, #c2c2c2);
+      }
+
+      .card-body {
+        padding: 20px;
+
+        .table-responsive {
+          margin-bottom: 20px; // Space below the table before the button
+        }
+
+        .table {
+          width: 100%;
+          margin-bottom: 0; // Remove default table margin
+          border-collapse: separate;
+          border-spacing: 0;
+          border: 5px solid var(--ion-color-medium-tint, #21487c); // Outer border for the table
+
+          thead {
+            tr {
+              th {
+                background-color: var(--ion-color-step-100, #1a9c87); // Lighter header background
+                color: var(--ion-color-dark, #222222);
+                font-weight: 100;
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid var(--ion-color-medium-tint, #080101);
+                border-right: 1px solid var(--ion-color-medium-tint, #0c0303); // Vertical border
+                &:last-child {
+                  border-right: none;
+                }
+              }
+            }
+          }
+
+          tbody {
+            tr {
+              td {
+                padding: 12px 15px;
+                border-bottom: 1px solid var(--ion-color-medium-tint, #050101);
+                border-right: 1px solid var(--ion-color-medium-tint, #070000); // Vertical border
+                &:last-child {
+                  border-right: none;
+                }
+
+                input[type="number"] {
+                  width: 100%;
+                  max-width: 80px; // Smaller width for note input
+                  text-align: center;
+                  padding: 6px 8px;
+                  border-radius:4px;
+                }
+
+                .fw-bold {
+                  color: var(--ion-color-dark, #222);
+                }
+
+                .btn-outline-primary {
+                  --border-color: var(--ion-color-primary, #3880ff);
+                  --color: var(--ion-color-primary, #3880ff);
+                  --ripple-color: var(--ion-color-primary-tint, #4c8aff);
+                  padding: 6px 12px;
+                  border-radius: 6px;
+                  font-weight: 500;
+                }
+              }
+              &:last-child {
+                td {
+                  border-bottom: none; // No border for the last row
+                }
+              }
+            }
+          }
+        }
+
+        .btn-success {
+          --background: var(--ion-color-success, #2dd36f);
+          --background-activated: var(--ion-color-success-shade, #28bd62);
+          --background-focused: var(--ion-color-success-shade, #28bd62);
+          --background-hover: var(--ion-color-success-tint, #3bc87c);
+          --color: var(--ion-color-success-contrast, #fff);
+          padding: 12px 25px;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 1.1em;
+        }
+      }
+    }
+
+    .alert {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: 500;
+      ion-icon {
+        font-size: 1.5em;
+        margin-top: -2px; // Adjust icon alignment
+      }
+      &.alert-success {
+        background-color: var(--ion-color-success-tint, #3bc87c);
+        color: var(--ion-color-success-contrast, #fff);
+        border: 1px solid var(--ion-color-success, #2dd36f);
+      }
+    }
+  }
+}

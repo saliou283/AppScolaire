@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestion des Tuteurs</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="openAddTeacherModal">
+       
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Liste des Tuteurs</h2>
+      <button type="button" class="btn btn-success d-none d-md-block" id="openAddTeacherModalDesktop">
+    Ajouter un tuteur
+      </button>
+    </div>
+
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Rechercher un tuteur..." aria-label="Rechercher un enseignant">
+      <button class="btn btn-outline-secondary" type="button">Rechercher</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Matière(s)</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Aminata</td>
+            <td>Ba</td>
+            <td>Communication</td>
+            <td>aminataba&#64;gmail.com</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Abdou Khadre</td>
+            <td>Ndiaye</td>
+            <td> Initiation à la preogramation</td>
+            <td>abdoukhadre&#64;ecole.com</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Aliou</td>
+            <td>Faye</td>
+            <td>Infographie</td>
+            <td>alioufaye&#64;ecole.com</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Serigne </td>
+            <td>Badiane</td>
+            <td>Droit cons</td>
+            <td>serignebadiane&#64;ecole.com</td>
+            <td>
+              
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Aliou</td>
+            <td>Ngom</td>
+            <td>Algorithme</td>
+            <td>alioungom&#64;ecole.com</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Modou</td>
+            <td>Thiam</td>
+            <td>Gesttion</td>
+            <td>Modouthiam&#64;ecole.com</td>
+            <td>
+              <tr>
+            
+              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
+              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+ 
+</ion-content>

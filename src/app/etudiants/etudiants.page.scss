@@ -1,0 +1,129 @@
+/* Styles pour etudiant.page.scss */
+
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #8aac64); // Use Ionic primary color or a custom one
+    color: white; // Text color for toolbar
+    --color: white; // For Ionic components like buttons/icons
+
+    ion-title {
+      color: white;
+    }
+
+    ion-buttons {
+      ion-button {
+        color: white;
+        ion-icon {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light, #f4f5f8); // Light background for the content area
+
+  .container {
+    background: rgb(242, 243, 242);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: var(--ion-color-dark, #222428);
+      margin-bottom: 20px;
+    }
+  }
+
+  .input-group {
+    .form-control {
+      border-radius: var(--ion-border-radius, 4px) 0 0 var(--ion-border-radius, 4px);
+    }
+    .btn {
+      border-radius: 0 var(--ion-border-radius, 4px) var(--ion-border-radius, 4px) 0;
+    }
+  }
+
+  .table-responsive {
+    margin-top: 20px;
+    border: 1px solid var(--ion-color-step-150, #dcdcdc); // Light border for table container
+    border-radius: 20px;
+    overflow: hidden; // Ensures rounded corners are applied
+
+    .table {
+      margin-bottom: 0; // Remove default Bootstrap table bottom margin
+      thead {
+        th {
+          background-color: var(--ion-color-step-200, #e0e0e0); // Slightly darker header
+          color: var(--ion-color-dark, #222428);
+          font-weight: 600;
+        }
+      }
+      tbody {
+        tr:nth-child(even) {
+          background-color: var(--ion-color-step-50, #f8f8f8); // Light stripe
+        }
+        td, th {
+          padding: 8px 75px; // More padding for better readability
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 20px; // Spacing above pagination
+    .page-item {
+      .page-link {
+        color: var(--ion-color-primary, #3880ff);
+        border: 1px solid var(--ion-color-primary, #3880ff);
+        margin: 0 4px;
+        border-radius: var(--ion-border-radius, 4px);
+
+        &:hover {
+          background-color: var(--ion-color-primary-tint, #4c8dff);
+          color: white;
+        }
+      }
+      &.active .page-link {
+        background-color: var(--ion-color-primary, #3880ff);
+        color: white;
+        border-color: var(--ion-color-primary, #3880ff);
+      }
+      &.disabled .page-link {
+        color: var(--ion-color-medium, #f7f8f6);
+        border-color: var(--ion-color-step-200, #e0e0e0);
+        pointer-events: none; // Disable click
+      }
+    }
+  }
+
+  // Ionic Modal specific styles
+  ion-modal {
+    --width: 90%; // Make modal a bit wider on larger screens
+    --height: auto;
+    --border-radius: 8px;
+
+    @media (min-width: 768px) {
+      --width: 600px; // Max width for desktop
+    }
+
+    ion-header {
+      ion-toolbar {
+        --background: var(--ion-color-primary, #3880ff);
+        color: white;
+      }
+    }
+
+    ion-content {
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+
+      ion-item {
+        --background: transparent; // Ensure item background is transparent over modal content
+      }
+    }
+  }
+}
