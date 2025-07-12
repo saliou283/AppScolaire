@@ -7,7 +7,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="generateReports()">
         <ion-icon name="document-text-outline"></ion-icon>
-        <span class="d-none d-md-inline ms-2">Générer Bulletins</span>
+        <span class="d-none d-md-inline ms-2">Générer Relevés</span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -16,18 +16,18 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="container mt-4">
 
-    <h2 class="mb-4">Processus de Délibération et Bulletins</h2>
+    <h2 class="mb-4">Processus de Délibération et Relevés</h2>
 
     <div class="row mb-3 g-2">
       <div class="col-md-6">
         <select class="form-select" [(ngModel)]="selectedClass" (change)="loadDeliberationData()">
-          <option value="">Sélectionner une classe</option>
+          <option value="">Sélectionner une Licence</option>
           <option *ngFor="let classOption of availableClasses" [value]="classOption">{{ classOption }}</option>
         </select>
       </div>
       <div class="col-md-6">
         <select class="form-select" [(ngModel)]="selectedPeriod" (change)="loadDeliberationData()">
-          <option value="">Sélectionner une période</option>
+          <option value="">Sélectionner un Semestre</option>
           <option *ngFor="let periodOption of availablePeriods" [value]="periodOption">{{ periodOption }}</option>
         </select>
       </div>
@@ -62,7 +62,7 @@
               <td>{{ studentResult.comment }}</td>
               <td>
                 <button class="btn btn-sm btn-outline-primary me-2" (click)="viewStudentReport(studentResult.studentId)">
-                  <ion-icon name="eye-outline"></ion-icon> Bulletin
+                  <ion-icon name="eye-outline"></ion-icon> Relevé
                 </button>
                 <button class="btn btn-sm btn-outline-info" (click)="editDeliberation(studentResult)">
                   <ion-icon name="create-outline"></ion-icon>
@@ -75,7 +75,7 @@
     </div>
 
     <div *ngIf="!selectedClass || !selectedPeriod" class="alert alert-info mt-3" role="alert">
-      Veuillez sélectionner une classe et une période pour afficher les résultats de délibération.
+      Veuillez sélectionner une Licence et un Semestre pour afficher les résultats de délibération.
     </div>
     <div *ngIf="selectedClass && selectedPeriod && deliberationData.length === 0" class="alert alert-warning mt-3" role="alert">
       Aucune donnée de délibération disponible pour cette sélection.

@@ -22,7 +22,7 @@
       <div class="col-md-6">
         <select class="form-select" [(ngModel)]="selectedView" (change)="changeView()">
           <option value="class">Par Filiere</option>
-          <option value="teacher">Par Enseignant</option>
+          <option value="teacher">Par Tuteur</option>
         </select>
       </div>
       <div class="col-md-6" *ngIf="selectedView === 'class'">
@@ -33,7 +33,7 @@
       </div>
       <div class="col-md-6" *ngIf="selectedView === 'teacher'">
         <select class="form-select" [(ngModel)]="selectedTeacher" (change)="loadTimetable()">
-          <option value="">Sélectionner un enseignant</option>
+          <option value="">Sélectionner un Tuteur</option>
           <option *ngFor="let teacherOption of availableTeachers" [value]="teacherOption.id">{{ teacherOption.firstName }} {{ teacherOption.lastName }}</option>
         </select>
       </div>
@@ -71,7 +71,7 @@
       Aucun emploi du temps disponible pour la sélection.
     </div>
     <div *ngIf="!selectedClass && !selectedTeacher" class="alert alert-info mt-3" role="alert">
-      Veuillez sélectionner une classe ou un enseignant pour afficher l'emploi du temps.
+      Veuillez sélectionner une classe ou un Tuteur pour afficher l'emploi du temps.
     </div>
 
   </div>

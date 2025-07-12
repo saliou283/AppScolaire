@@ -1,7 +1,7 @@
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-primary, #8aac64); // Couleur de fond de la barre de titre
-    --color: var(--ion-color-primary-contrast, #ffffff); // Couleur du texte
+    --background: var(--ion-color-primary, #8aac64); 
+    --color: var(--ion-color-primary-contrast, #ffffff); 
 
     ion-title {
       color: var(--ion-color-primary-contrast, #ffffff);
@@ -12,85 +12,70 @@ ion-header {
     }
   }
 }
-/*
-  src/app/deliberations/deliberation/deliberation.page.scss
-*/
 
-// 1. Styles généraux pour la page
-// --------------------------------
 ion-content {
-  // Ajuste le padding du contenu si nécessaire, pour un bon espacement
   --padding-top: 16px;
   --padding-bottom: 16px;
   --padding-start: 16px;
   --padding-end: 16px;
 }
 
-// Assure que le conteneur Bootstrap a de bonnes marges par rapport au header Ionic
 .container {
   padding-left: var(--ion-safe-area-left, 16px);
   padding-right: var(--ion-safe-area-right, 16px);
-  margin-top: 16px; // Espacement sous le header
+  margin-top: 16px; 
 }
 
-// 2. Styles spécifiques aux éléments de la page
-// ---------------------------------------------------------------
-
-// En-têtes de section
 h2, h3 {
-  color: var(--ion-color-dark); // Utilise une couleur foncée d'Ionic
+  color: var(--ion-color-dark);
   font-weight: 720;
-  margin-bottom: 1.5rem; // Marge sous les titres
+  margin-bottom: 1.5rem; 
 }
 
-// Sélecteurs de classe et de période
 .form-select {
-  margin-bottom: 2rem; // Espacement entre les sélecteurs et le contenu suivant
-  border-color: var(--ion-color-step-200, #8aac64); // Couleur de bordure plus neutre
+  margin-bottom: 2rem; 
+  border-color: var(--ion-color-step-200, #8aac64); 
   &:focus {
-    border-color: var(--ion-color-primary); // Bordure colorée au focus
-    box-shadow: 0 0 0 0.25rem rgba(var(--ion-color-primary-rgb), 0.25); // Ombre au focus
+    border-color: var(--ion-color-primary); 
+    box-shadow: 0 0 0 0.25rem rgba(var(--ion-color-primary-rgb), 0.25);
   }
 }
 
-// Tableau des résultats de délibération
 .table {
-  font-size: 0.95rem; // Taille de police légèrement réduite
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre légère pour le tableau
-  border-radius: 8px; // Bords arrondis
-  overflow: hidden; // Cache le débordement pour les coins arrondis
+  font-size: 0.95rem; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px; 
+  overflow: hidden; 
 
   thead {
     th {
-      background-color: var(--ion-color-dark); // Un en-tête de tableau sombre pour le contraste
-      color: var(--ion-color-light); // Texte clair
+      background-color: var(--ion-color-dark); 
+      color: var(--ion-color-light); 
       padding: 10px 40px;
     }
   }
 
   tbody {
     tr {
-      transition: background-color 0.2s ease; // Transition douce au survol
+      transition: background-color 0.2s ease;
       &:hover {
-        background-color: var(--ion-color-light); // Couleur de fond au survol
+        background-color: var(--ion-color-light); 
       }
     }
     td, th {
-      padding: 12px; // Padding pour les cellules
-      border-color: var(--ion-color-step-150, #8aac64); // Couleur de bordure Ionic
+      padding: 12px; 
+      border-color: var(--ion-color-step-150, #8aac64);
     }
   }
 }
 
-// Styles pour les badges de décision (Admis, Refusé, Conditionnel)
 .badge {
-  padding: 0.4em 0.7em; // Ajuste le padding du badge
-  font-weight: 600; // Texte en gras
-  font-size: 0.8em; // Taille de police légèrement plus petite
-  border-radius: 0.25rem; // Bords arrondis
+  padding: 0.4em 0.7em; 
+  font-weight: 600; 
+  font-size: 0.8em; 
+  border-radius: 0.25rem; 
 }
 
-// Couleurs spécifiques pour les moyennes dans le tableau
 td {
   span.text-danger {
     font-weight: bold;
@@ -100,31 +85,27 @@ td {
   }
 }
 
-// Boutons d'action dans le tableau (Bulletin, Modifier)
 .btn-sm {
   font-size: 0.8rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.3rem;
   ion-icon {
-    vertical-align: middle; // Alignement des icônes avec le texte
+    vertical-align: middle; 
   }
 }
 
-// Alertes Bootstrap (info, warning)
 .alert {
-  border-radius: 8px; // Bords arrondis pour les alertes
+  border-radius: 8px; 
   font-size: 0.9rem;
 }
 
-// 3. Styles pour la réactivité
-// ----------------------------------------------------
 ion-header {
   ion-toolbar {
     ion-buttons[slot="end"] {
       ion-button {
-        // Cacher le texte du bouton 'Générer Bulletins' dans l'en-tête sur les petits écrans
+      
         span.d-none.d-md-inline {
-          @media (max-width: 767.98px) { // Moins que md (tablette/mobile)
+          @media (max-width: 767.98px) { 
             display: none !important;
           }
         }
@@ -133,7 +114,6 @@ ion-header {
   }
 }
 
-// Ajustement des icônes Ionic pour un alignement parfait
 ion-icon {
   vertical-align: middle;
 }

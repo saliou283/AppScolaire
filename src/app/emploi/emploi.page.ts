@@ -31,7 +31,7 @@ interface TeacherOption {
 export class EmploiPage implements OnInit {
 
   allLessons: Lesson[] = [];
-  timetable: Lesson[] = []; // Le sous-ensemble filtré pour l'affichage
+  timetable: Lesson[] = []; 
   selectedView: 'class' | 'teacher' = 'class';
   selectedClass: string = '';
   selectedTeacher: string = '';
@@ -52,7 +52,6 @@ export class EmploiPage implements OnInit {
   }
 
   loadAllLessons() {
-    // Données fictives pour tous les emplois du temps
     this.allLessons = [
       { day: 'Lundi', hour: '08:00-09:00', subject: 'Programation', teacherId: 't1', teacherName: 'Addou Khadre Ndiaye', classId: 'cls1', className: 'IDA', room: 'Google Meet', type: 'Cours' },
       { day: 'Lundi', hour: '09:00-10:00', subject: 'Communication', teacherId: 't1', teacherName: 'Aminata Ba', classId: 'cls1', className: 'CD', room: 'Moodle', type: 'TD' },
