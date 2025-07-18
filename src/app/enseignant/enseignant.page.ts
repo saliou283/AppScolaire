@@ -15,23 +15,17 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButton, 
 
 export class EnseignantPage implements OnInit {
 
-  listeTuteurs: any[] | null = null; // Initialisez à null, ou à un tableau vide [] si vous préférez
+  listeTuteurs: any[] | null = null; 
 
   constructor() { }
 
   ngOnInit() {
-    // Ici, vous simulerez (ou effectuerez réellement) le chargement de vos données.
+   
     this.loadTuteurs();
   }
 
   loadTuteurs() {
-    // *** REMPLACEZ CECI PAR VOTRE VRAI APPEL API ***
-    // Par exemple, si vous avez un service 'TuteurService' avec une méthode 'getTuteurs()':
-    // this.tuteurService.getTuteurs().subscribe(data => {
-    //   this.listeTuteurs = data;
-    // });
-
-    // Pour l'instant, simulons un chargement avec un délai :
+    
     setTimeout(() => {
       this.listeTuteurs = [
         { id: 1, nom: 'Ba', prenom: 'Aminata', matieres: 'Communication', email: 'aminataba@gmail.com' },
@@ -42,6 +36,6 @@ export class EnseignantPage implements OnInit {
         { id: 6, nom: 'Thiam', prenom: 'Modou', matieres: 'Gestion', email: 'Modouthiam@ecole.com' },
       ];
       console.log('Données des tuteurs chargées !');
-    }, 1000); // Délai de 1 seconde pour simuler un appel réseau
+    }, 1000); 
   }
 }

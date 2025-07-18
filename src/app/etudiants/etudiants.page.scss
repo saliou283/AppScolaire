@@ -1,10 +1,10 @@
-/* Styles pour etudiant.page.scss */
+
 
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-primary, #8aac64); // Use Ionic primary color or a custom one
-    color: white; // Text color for toolbar
-    --color: white; // For Ionic components like buttons/icons
+    --background: var(--ion-color-primary, #8aac64); 
+    color: white; 
+    --color: white; 
 
     ion-title {
       color: white;
@@ -22,7 +22,7 @@ ion-header {
 }
 
 ion-content {
-  --background: var(--ion-color-light, #f4f5f8); // Light background for the content area
+  --background: var(--ion-color-light, #f4f5f8); 
 
   .container {
     background: rgb(228, 235, 225);
@@ -47,32 +47,32 @@ ion-content {
 
   .table-responsive {
     margin-top: 20px;
-    border: 1px solid var(--ion-color-step-150, #dcdcdc); // Light border for table container
+    border: 1px solid var(--ion-color-step-150, #dcdcdc); 
     border-radius: 20px;
-    overflow: hidden; // Ensures rounded corners are applied
+    overflow: hidden;
 
     .table {
-      margin-bottom: 0; // Remove default Bootstrap table bottom margin
+      margin-bottom: 0; 
       thead {
         th {
-          background-color: var(--ion-color-step-200, #e0e0e0); // Slightly darker header
+          background-color: var(--ion-color-step-200, #e0e0e0); 
           color: var(--ion-color-dark, #222428);
           font-weight: 600;
         }
       }
       tbody {
         tr:nth-child(even) {
-          background-color: var(--ion-color-step-50, #f8f8f8); // Light stripe
+          background-color: var(--ion-color-step-50, #f8f8f8); 
         }
         td, th {
-          padding: 8px 70px; // More padding for better readability
+          padding: 8px 70px; 
         }
       }
     }
   }
 
   .pagination {
-    margin-top: 20px; // Spacing above pagination
+    margin-top: 20px; 
     .page-item {
       .page-link {
         color: var(--ion-color-primary, #3880ff);
@@ -93,19 +93,19 @@ ion-content {
       &.disabled .page-link {
         color: var(--ion-color-medium, #8aac64);
         border-color: var(--ion-color-step-200, #e0e0e0);
-        pointer-events: none; // Disable click
+        pointer-events: none; 
       }
     }
   }
 
-  // Ionic Modal specific styles
+ 
   ion-modal {
-    --width: 90%; // Make modal a bit wider on larger screens
+    --width: 90%; 
     --height: auto;
     --border-radius: 8px;
 
     @media (min-width: 768px) {
-      --width: 600px; // Max width for desktop
+      --width: 600px; 
     }
 
     ion-header {
@@ -122,7 +122,7 @@ ion-content {
       --padding-bottom: 16px;
 
       ion-item {
-        --background: transparent; // Ensure item background is transparent over modal content
+        --background: transparent;
       }
     }
   }
