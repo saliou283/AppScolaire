@@ -1,0 +1,103 @@
+/* --- Background général pour le Dashboard --- */
+.dashboard-background {
+  --background: #091d3af3; /* Un fond très clair et doux */
+}
+
+/* --- Bannière de Bienvenue Condensée --- */
+.welcome-banner {
+  padding: 15px 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee12b;
+}
+
+.welcome-banner h2 {
+  font-weight: 700;
+  font-size: 1.6em;
+  color: var(--ion-color-primary, #ffeb38); /* Utilise la couleur primaire Ionic */
+  margin: 0;
+}
+
+.stats-summary {
+  color: #fffefe;
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+/* --- Cartes de Statistiques Clés --- */
+.stat-card {
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  margin: 8px 0;
+}
+
+.stat-card ion-card-title {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.stat-card ion-card-content {
+  font-size: 0.9em;
+  padding-top: 0;
+  color: #333;
+}
+
+.stat-icon {
+  font-size: 2.2em;
+  padding-bottom: 5px;
+}
+
+/* Couleurs Thématiques pour les Stats */
+.color-students {
+  --background: #e5f324; /* Bleu très clair */
+  color: #1890ff;
+}
+.color-teachers {
+  --background: #80e2a5; /* Jaune très clair */
+  color: #faad14;
+}
+
+/* --- Grille d'Accès Rapide (Tiles) --- */
+.quick-access-grid {
+  padding: 0;
+}
+h2 { 
+  color: #eee12b;
+}
+.access-tile {
+  background: var(--ion-color-light, #d1ebaf);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px 5px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(8, 8, 8, 0.05);
+}
+
+.access-tile:hover {
+  background: var(--ion-color-primary-tint, #ece581);
+  color: rgb(22, 22, 22);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px #f8f6f6e0;
+}
+
+.access-tile:hover .tile-icon {
+    color: white !important;
+}
+
+.tile-icon {
+  font-size: 3em;
+  color: var(--ion-color-primary, #3880ff);
+  margin-bottom: 5px;
+  transition: color 0.2s;
+}
+
+.access-tile p {
+  font-size: 0.85em;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
