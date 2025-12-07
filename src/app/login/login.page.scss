@@ -1,0 +1,92 @@
+/* src/app/login/login.page.scss */
+
+ion-header {
+  // Donne un peu de profondeur à la barre de titre
+  ion-toolbar {
+    --ion-toolbar-border-color: transparent;
+  }
+}
+
+ion-content {
+  // Arrière-plan simple et centré
+  --ion-background-color: #f4f6f9; // Gris très clair pour le fond
+
+  .header-content {
+    text-align: center;
+    padding: 30px 20px 0;
+
+    .app-logo {
+      font-size: 80px;
+      color: var(--ion-color-primary); // Utilise la couleur principale de l'app
+      margin-bottom: 10px;
+    }
+    
+    h1 {
+      font-size: 2.2em;
+      margin: 5px 0 0;
+      color: #333;
+      font-weight: 700;
+    }
+    p {
+      color: var(--ion-color-medium);
+      margin-top: 5px;
+    }
+  }
+  
+  .login-card {
+    margin-top: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); // Ombre légère pour effet de surélévation
+    border-radius: 12px;
+    
+    ion-card-title {
+      font-weight: 600;
+      color: var(--ion-color-dark);
+      margin-bottom: 10px;
+    }
+  }
+  
+  .input-item {
+    margin-bottom: 15px;
+    --border-radius: 8px;
+    --background: #ffffff;
+    --border-color: var(--ion-color-light); // Ligne fine par défaut
+    
+    ion-icon {
+      color: var(--ion-color-medium);
+    }
+  }
+
+  ion-button {
+    height: 50px;
+    font-size: 1.1em;
+    font-weight: bold;
+    // Ajoute une ombre subtile au bouton
+    box-shadow: 0 4px 10px rgba(var(--ion-color-primary-rgb), 0.3);
+  }
+  
+  .aux-links {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    
+    ion-text {
+      cursor: pointer;
+      font-size: 0.9em;
+      
+      &:hover {
+        color: var(--ion-color-primary) !important;
+      }
+    }
+  }
+
+  // Centrage pour les grands écrans (tablettes/web)
+  @media (min-width: 768px) {
+    .login-card {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

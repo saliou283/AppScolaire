@@ -1,6 +1,6 @@
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-primary, #8aac64);
+    --background: var(--ion-color-primary, #091d3af3);
     --color: var(--ion-color-primary-contrast, #fff);
 
     ion-title {
@@ -17,11 +17,11 @@ ion-content {
   --background: var(--ion-color-light, #dce2db25);
 
   .container {
-    background-color: var(--ion-color-light, #8aac64);
+    background-color: var(--ion-color-light, #fff);
     padding-bottom: 20px; // Add some padding at the bottom
 
     h2 {
-      color: var(--ion-color-dark, #222);
+      color: var(--ion-color-dark, #eea826);
       margin-bottom: 20px;
       font-weight: 600;
       text-align: center;
@@ -65,18 +65,18 @@ ion-content {
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 
       .card-header {
-        background-color: var(--ion-color-light-shade, #26bd83);
-        color: var(--ion-color-dark, #222);
+        background-color: var(--ion-color-light-shade, #091d3af3);
+        color: var(--ion-color-dark, #fff);
         font-weight: 500;
         padding: 15px 20px;
-        border-bottom: 1px solid var(--ion-color-medium-tint, #c2c2c2);
+        border-bottom: 1px solid var(--ion-color-medium-tint, #e2cdcd);
       }
 
       .card-body {
         padding: 20px;
 
         .table-responsive {
-          margin-bottom: 20px; // Space below the table before the button
+          margin-bottom: 10px; // Space below the table before the button
         }
 
         .table {
@@ -84,18 +84,18 @@ ion-content {
           margin-bottom: 0; // Remove default table margin
           border-collapse: separate;
           border-spacing: 0;
-          border: 5px solid var(--ion-color-medium-tint, #21487c); // Outer border for the table
+          border: 1px solid var(--ion-color-medium-tint, #091d3af3); // Outer border for the table
 
-          thead {
+         thead {
             tr {
               th {
-                background-color: var(--ion-color-step-100, #1a9c87); // Lighter header background
-                color: var(--ion-color-dark, #222222);
+                background-color: var(--ion-color-step-100, #ffffff); // Lighter header background
+                color: var(--ion-color-dark, #000000);
                 font-weight: 100;
                 padding: 12px 15px;
                 text-align: left;
-                border-bottom: 1px solid var(--ion-color-medium-tint, #080101);
-                border-right: 1px solid var(--ion-color-medium-tint, #0c0303); // Vertical border
+                border-bottom: 1px solid var(--ion-color-medium-tint, #000);
+                border-right: 1px solid var(--ion-color-medium-tint, #000); // Vertical border
                 &:last-child {
                   border-right: none;
                 }
@@ -107,8 +107,8 @@ ion-content {
             tr {
               td {
                 padding: 12px 15px;
-                border-bottom: 1px solid var(--ion-color-medium-tint, #050101);
-                border-right: 1px solid var(--ion-color-medium-tint, #070000); // Vertical border
+                border-bottom: 1px solid var(--ion-color-medium-tint, #000);
+                border-right: 1px solid var(--ion-color-medium-tint, #000); // Vertical border
                 &:last-child {
                   border-right: none;
                 }
@@ -118,11 +118,11 @@ ion-content {
                   max-width: 80px; // Smaller width for note input
                   text-align: center;
                   padding: 6px 8px;
-                  border-radius:4px;
+                  border-radius:5px;
                 }
 
                 .fw-bold {
-                  color: var(--ion-color-dark, #222);
+                  color: var(--ion-color-dark, #000000);
                 }
 
                 .btn-outline-primary {
@@ -130,8 +130,8 @@ ion-content {
                   --color: var(--ion-color-primary, #3880ff);
                   --ripple-color: var(--ion-color-primary-tint, #4c8aff);
                   padding: 6px 12px;
-                  border-radius: 6px;
-                  font-weight: 500;
+                  border-radius: 4px;
+                  font-weight: 400;
                 }
               }
               &:last-child {
@@ -158,7 +158,7 @@ ion-content {
     }
 
     .alert {
-      margin-top: 20px;
+      margin-top: 0px;
       padding: 15px;
       border-radius: 8px;
       font-weight: 500;
@@ -167,9 +167,9 @@ ion-content {
         margin-top: -2px; // Adjust icon alignment
       }
       &.alert-success {
-        background-color: var(--ion-color-success-tint, #3bc87c);
+        background-color: var(--ion-color-success-tint, #091d3af3);
         color: var(--ion-color-success-contrast, #fff);
-        border: 1px solid var(--ion-color-success, #2dd36f);
+        border: 1px solid var(--ion-color-success, #eea826);
       }
     }
   }

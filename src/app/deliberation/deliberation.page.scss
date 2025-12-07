@@ -1,6 +1,6 @@
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-primary, #8aac64); 
+    --background: var(--ion-color-primary, #eea826); 
     --color: var(--ion-color-primary-contrast, #ffffff); 
 
     ion-title {
@@ -8,7 +8,7 @@ ion-header {
     }
 
     ion-back-button {
-      --color: var(--ion-color-primary-contrast, #8aac64);
+      --color: var(--ion-color-primary-contrast, #ffffff);
     }
   }
 }

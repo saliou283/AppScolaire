@@ -1,6 +1,6 @@
 import { Routes} from '@angular/router';
 
-export const routes: Routes = [
+export const routes: Routes =  [
 
    {
     path: '',
@@ -23,19 +23,30 @@ export const routes: Routes = [
     path: 'deliberation',
     loadComponent: () => import('./deliberation/deliberation.page').then( m => m.DeliberationPage)
   },
+  
+{
+  path: 'home',
+  loadComponent: () => import('./home/home.page').then(m => m.HomePage), 
+},
   {
-    path: 'absence',
-    loadComponent: () => import('./absence/absence.page').then( m => m.AbsencePage)
-  },
-  {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then( m => m.HomePage)
-  },
-  {
-    path: 'etudiant',
+    path: 'etudiant', 
     loadComponent: () => import('./etudiants/etudiants.page').then( m => m.EtudiantsPage)
   },
+ 
+  {
+    path: 'missing',
+    loadComponent: () => import('./missing/missing.page').then( m => m.MissingPage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
   
+
+
+
+
+
 ];
 
 export class AppRoutingModule {}

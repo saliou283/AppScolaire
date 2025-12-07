@@ -3,105 +3,97 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Gestion Scolaire</ion-title>
-    <ion-buttons slot="end">
+    <ion-title>Tableau de Bord</ion-title> <ion-buttons slot="end">
       <ion-button (click)="goToProfilePage()">
         <ion-icon name="person-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+     
+<ion-content [fullscreen]="true" class="ion-padding dashboard-background">
 
-<ion-content [fullscreen]="true" class="ion-padding homepage-background">
-  <div class="hero-section ion-text-center animate__animated animate__fadeIn">
-    <h1>Bienvenue sur votre espace de gestion scolaire !</h1>
-    <p>Simplifiez la gestion quotidienne de votre université.</p>
-    <ion-button size="large" (click)="goToLoginPage()" class="ion-margin-top">
-      Commencer
-    </ion-button>
+  <div class="welcome-banner animate__animated animate__fadeInDown">
+    <h2>👋 Bienvenue sur votre espace de gestion scolaire !</h2>
+    <p class="stats-summary">Simplifier la gestion quotidienne de votre établissement. <br> Dernière mise à jour: le 11 Octobre 2025 à 22:15</p>
   </div>
 
-  <div class="container feature-cards">
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title> 
-                <a href="etudiant">Gestion des Étudiants</a>
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Ajoutez, modifiez et consultez les informations des étudiants.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title> 
-                <a href="enseignant">Gestion des Tuteurs</a>
-              </ion-card-title> 
-            </ion-card-header>
-            <ion-card-content>
-              Gérez les profils et les assignations des tuteurs.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title> 
-                 <a href="note">Gestion des Notes</a>
-                </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Consultation et gestion des notes.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title>
-                <a href="absence">Gestion des Absences</a>
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Suivez et gérez les absences des étudiants et du personnel.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title>
-                <a href="emploi">Emplois du Temps</a>
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Consultez et organisez les emplois du temps.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title>
-                <a href="deliberation">Délibérations & Relevés</a>
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Accédez aux processus de délibération et aux relevés scolaires.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
+  <ion-grid class="stats-grid ion-margin-bottom">
+    <ion-row>
+      <ion-col size="6" size-md="3">
+        <ion-card class="stat-card color-students">
+          <ion-card-header>
+            <ion-icon name="people" class="stat-icon"></ion-icon>
+            <ion-card-title>2124</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+           Élèves
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-md="3">
+        <ion-card class="stat-card color-teachers">
+          <ion-card-header>
+            <ion-icon name="school" class="stat-icon"></ion-icon>
+            <ion-card-title>15</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+             Enseignants
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
       </ion-row>
-    </ion-grid>
-  </div>
+  </ion-grid>
+
+  <h2 class="ion-padding-start">Accès Rapide aux Modules</h2>
+  <ion-grid class="quick-access-grid">
+    <ion-row class="ion-justify-content-start">
+      
+      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="2">
+        <div class="access-tile animate__animated animate__zoomIn" >
+          <ion-icon name="person-circle" class="tile-icon"></ion-icon>
+         <a href="etudiant">Élèves</a>
+        </div>
+      </ion-col>
+
+      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="2">
+        <div class="access-tile animate__animated animate__zoomIn"  style="animation-delay: 0.1s;">
+          <ion-icon name="chalkboard" class="tile-icon"></ion-icon>
+    <a href="enseignant">Enseignants</a>
+        </div>
+      </ion-col>
+
+      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="2">
+        <div class="access-tile animate__animated animate__zoomIn"  style="animation-delay: 0.2s;">
+          <ion-icon name="document-text" class="tile-icon"></ion-icon>
+           <a href="note">Notes</a>
+        </div>
+      </ion-col>
+      
+      
+      
+      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="2">
+        <div class="access-tile animate__animated animate__zoomIn"  style="animation-delay: 0.4s;">
+          <ion-icon name="calendar" class="tile-icon"></ion-icon>
+          <a href="emploi">Emplois</a>
+        </div>
+      </ion-col>
+      
+      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="2">
+        <div class="access-tile animate__animated animate__zoomIn"  style="animation-delay: 0.5s;">
+          <ion-icon name="stats-chart" class="tile-icon"></ion-icon>
+        <a href="deliberation">Deliberations</a>
+        </div>
+      </ion-col>
+
+       <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="2">
+        <div class="access-tile animate__animated animate__zoomIn"  style="animation-delay: 0.2s;">
+          <ion-icon name="document-text" class="tile-icon"></ion-icon>
+           <a href="missing">Absences</a>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

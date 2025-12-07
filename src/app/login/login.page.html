@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Connexion Scolaire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="header-content">
+    <ion-icon name="school-outline" class="app-logo"></ion-icon>
+    <h1>Bienvenue</h1>
+    <p>Gérez votre scolarité en toute simplicité.</p>
+  </div>
+
+  <ion-card class="login-card">
+    <ion-card-header>
+      <ion-card-title>Se connecter</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      
+      <form (ngSubmit)="login()">
+        
+        <ion-item class="input-item">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input
+            label="Email ou Identifiant"
+            label-placement="floating"
+            type="email"
+            [(ngModel)]="credentials.email"
+            name="email"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input
+            label="Mot de passe"
+            label-placement="floating"
+            type="password"
+            [(ngModel)]="credentials.password"
+            name="password"
+            required
+          ></ion-input>
+        </ion-item>
+        
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          color="primary"
+          class="ion-margin-top"
+          [disabled]="!credentials.email || !credentials.password"
+        >
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
+          Connexion
+        </ion-button>
+
+      </form>
+      <div class="aux-links">
+        <ion-text color="medium" (click)="goToRegister()">
+          Pas encore de compte ? <strong>S'inscrire</strong>
+        </ion-text>
+        <ion-text color="medium" routerLink="/forgot-password">
+          Mot de passe oublié ?
+        </ion-text>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
