@@ -1,5 +1,5 @@
 // src/main.ts
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
@@ -58,7 +58,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     // Fournit une stratégie de réutilisation des routes spécifique à Ionic,
     // ce qui aide à maintenir l'état des pages lors de la navigation avant/arrière.
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideZoneChangeDetection(),{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     // Configure Ionic Angular. C'est nécessaire pour que les composants Ionic fonctionnent.
     provideIonicAngular(),
     // Configure le système de routage d'Angular avec les routes définies dans 'app.routes.ts'.
