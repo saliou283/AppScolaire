@@ -1,8 +1,11 @@
 import { Component, OnInit, inject, EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router'; 
+
 import { collectionData, Firestore, collection } from '@angular/fire/firestore';
 import { 
- IonContent,  
+  IonContent,   
   IonButton, 
   IonIcon, 
   IonGrid, 
@@ -13,6 +16,7 @@ import {
   ModalController,
   IonLabel
 } from '@ionic/angular/standalone';
+
 import { addIcons } from 'ionicons';
 import { 
   analyticsOutline, 
@@ -35,25 +39,27 @@ import {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    RouterLink,
     IonContent,
     IonButton,
     IonIcon,
     IonGrid,
     IonRow,
     IonCol,
-    IonSearchbar ,
+    IonSearchbar,
     IonLabel
   ],
   providers: [AlertController, ModalController]
 })
 export class HomePage implements OnInit {
-  // Injection des services via la fonction inject()
+  // Injection des services
   private firestore = inject(Firestore);
   private injector = inject(EnvironmentInjector);
+  private router = inject(Router); // Utilisation de inject() pour la cohérence
 
-  // Initialisation directe : le contexte d'injection est valide ici
+  // Données
   public items$ = collectionData(collection(this.firestore, 'items'));
-
   public stats = {
     totalStudents: 450,
     activeProjects: 12,
@@ -62,12 +68,12 @@ export class HomePage implements OnInit {
   };
 
   public announcements = [
-    { id: 1, title: "Nouvelle mise à jour du système", date: "2024-05-15", content: "Une mise à jour importante a été déployée." },
-    { id: 2, title: "Rappel sur les inscriptions", date: "2024-05-10", content: "Les inscriptions pour le semestre suivant commencent demain." }
+    { id: 1, title: "Nouvelle mise à jour", date: "2024-05-15", content: "Mise à jour déployée." },
+    { id: 2, title: "Rappel inscriptions", date: "2024-05-10", content: "Début demain." }
   ];
 
   constructor() {
-    // Enregistrement des icônes pour le mode standalone [1, 2]
+    // Enregistrement des icônes
     addIcons({ 
       analyticsOutline, 
       searchOutline, 
@@ -87,14 +93,22 @@ export class HomePage implements OnInit {
     console.log('Dashboard chargé avec succès');
   }
 
-  // Exemple d'utilisation de runInInjectionContext pour un chargement manuel
-  loadDataManual() {
-    runInInjectionContext(this.injector, () => {
-      const col = collection(this.firestore, 'items');
-      this.items$ = collectionData(col);
-    });
+  // Méthodes de navigation
+  goToProfilePage() {
+    console.log('Navigating to Profile Page...');
+    this.router.navigate(['/profile']);
   }
 
+  goToLoginPage() {
+    console.log('Navigating to Login Page...');
+    this.router.navigate(['/login']);
+  }
+
+  goToFiliere(filiereName: string) {
+    console.log('Navigation vers la filière :', filiereName);
+  }
+
+  // Autres méthodes
   doRefresh(event: any) {
     setTimeout(() => {
       this.stats.totalStudents += 1;
@@ -102,17 +116,18 @@ export class HomePage implements OnInit {
     }, 1500);
   }
 
-  goToFiliere(filiereName: string) {
-    console.log('Navigation vers la filière :', filiereName);
+  loadDataManual() {
+    runInInjectionContext(this.injector, () => {
+      const col = collection(this.firestore, 'items');
+      this.items$ = collectionData(col);
+    });
   }
 
-  // Méthodes de navigation à implémenter selon vos besoins
-  goToProfilePage() {}
-  goToLoginPage() {}
-  goToEtudiantPage() {}
-  goToEnseignantPage() {}
-  goToNotePage() {}
-  goToAbsencePage() {}
-  goToEmploiPage() {}
-  goToDeliberationPage() {}
+  // Placeholders pour les futures pages
+  goToEtudiantPage() { this.router.navigate(['/etudiant']); }
+  goToEnseignantPage() { this.router.navigate(['/enseignant']); }
+  goToNotePage() { this.router.navigate(['/notes']); }
+  goToAbsencePage() { this.router.navigate(['/absences']); }
+  goToEmploiPage() { this.router.navigate(['/emploi']); }
+  goToDeliberationPage() { this.router.navigate(['/deliberation']); }
 }

@@ -18,7 +18,7 @@ ion-content {
 
   .container {
     background-color: var(--ion-color-light, #fff);
-    padding-bottom: 20px; // Add some padding at the bottom
+    padding-bottom: 20px;
 
     h2 {
       color: var(--ion-color-dark, #eea826);
@@ -76,26 +76,26 @@ ion-content {
         padding: 20px;
 
         .table-responsive {
-          margin-bottom: 10px; // Space below the table before the button
+          margin-bottom: 20px; 
         }
 
         .table {
           width: 100%;
-          margin-bottom: 0; // Remove default table margin
+          margin-bottom: 0; 
           border-collapse: separate;
           border-spacing: 0;
-          border: 1px solid var(--ion-color-medium-tint, #091d3af3); // Outer border for the table
+          border: 1px solid var(--ion-color-medium-tint, #091d3af3);
 
-         thead {
+          thead {
             tr {
               th {
-                background-color: var(--ion-color-step-100, #ffffff); // Lighter header background
+                background-color: var(--ion-color-step-100, #ffffff);
                 color: var(--ion-color-dark, #000000);
-                font-weight: 100;
+                font-weight: 600; // Augmenté pour la lisibilité
                 padding: 12px 15px;
                 text-align: left;
                 border-bottom: 1px solid var(--ion-color-medium-tint, #000);
-                border-right: 1px solid var(--ion-color-medium-tint, #000); // Vertical border
+                border-right: 1px solid var(--ion-color-medium-tint, #000);
                 &:last-child {
                   border-right: none;
                 }
@@ -108,17 +108,18 @@ ion-content {
               td {
                 padding: 12px 15px;
                 border-bottom: 1px solid var(--ion-color-medium-tint, #000);
-                border-right: 1px solid var(--ion-color-medium-tint, #000); // Vertical border
+                border-right: 1px solid var(--ion-color-medium-tint, #000);
                 &:last-child {
                   border-right: none;
                 }
 
                 input[type="number"] {
                   width: 100%;
-                  max-width: 80px; // Smaller width for note input
+                  max-width: 80px; 
                   text-align: center;
                   padding: 6px 8px;
-                  border-radius:5px;
+                  border-radius: 5px;
+                  border: 1px solid #ccc;
                 }
 
                 .fw-bold {
@@ -136,7 +137,7 @@ ion-content {
               }
               &:last-child {
                 td {
-                  border-bottom: none; // No border for the last row
+                  border-bottom: none;
                 }
               }
             }
@@ -164,7 +165,7 @@ ion-content {
       font-weight: 500;
       ion-icon {
         font-size: 1.5em;
-        margin-top: -2px; // Adjust icon alignment
+        margin-top: -2px; 
       }
       &.alert-success {
         background-color: var(--ion-color-success-tint, #091d3af3);
