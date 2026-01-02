@@ -1,65 +1,118 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { Router, RouterLink } from '@angular/router'; 
+import { collectionData, Firestore, collection } from '@angular/fire/firestore';
+import { 
+ IonContent,  
+  IonButton, 
+  IonIcon, 
+  IonGrid, 
+  IonRow, 
+  IonCol, 
+  IonSearchbar,
+  AlertController,
+  ModalController,
+  IonLabel
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { 
+  analyticsOutline, 
+  searchOutline, 
+  notificationsOutline, 
+  people, 
+  rocket, 
+  ribbon, 
+  alertCircle,
+  rocketOutline,
+  colorPaletteOutline,
+  personCircleOutline,
+  logInOutline 
+} from 'ionicons/icons';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
-    IonicModule,
     CommonModule,
-    FormsModule,
-    RouterLink 
-  ]
+    IonContent,
+    IonButton,
+    IonIcon,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonSearchbar ,
+    IonLabel
+  ],
+  providers: [AlertController, ModalController]
 })
 export class HomePage implements OnInit {
+  // Injection des services via la fonction inject()
+  private firestore = inject(Firestore);
+  private injector = inject(EnvironmentInjector);
 
-  constructor(private router: Router) { }
+  // Initialisation directe : le contexte d'injection est valide ici
+  public items$ = collectionData(collection(this.firestore, 'items'));
+
+  public stats = {
+    totalStudents: 450,
+    activeProjects: 12,
+    internshipRate: 85,
+    delayedProjects: 5
+  };
+
+  public announcements = [
+    { id: 1, title: "Nouvelle mise à jour du système", date: "2024-05-15", content: "Une mise à jour importante a été déployée." },
+    { id: 2, title: "Rappel sur les inscriptions", date: "2024-05-10", content: "Les inscriptions pour le semestre suivant commencent demain." }
+  ];
+
+  constructor() {
+    // Enregistrement des icônes pour le mode standalone [1, 2]
+    addIcons({ 
+      analyticsOutline, 
+      searchOutline, 
+      notificationsOutline,
+      people,
+      rocket,
+      ribbon,
+      alertCircle,
+      rocketOutline,
+      colorPaletteOutline,
+      personCircleOutline,
+      logInOutline
+    });
+  }
+
   ngOnInit() {
-    
-  }
-  goToProfilePage() {
-    console.log('Navigating to Profile Page...');
-  
-    this.router.navigate(['/profile']);
+    console.log('Dashboard chargé avec succès');
   }
 
-  goToLoginPage() {
-    console.log('Navigating to Login Page...');
-    
-    this.router.navigate(['/login']);
+  // Exemple d'utilisation de runInInjectionContext pour un chargement manuel
+  loadDataManual() {
+    runInInjectionContext(this.injector, () => {
+      const col = collection(this.firestore, 'items');
+      this.items$ = collectionData(col);
+    });
   }
 
-  goToEtudiantPage() {
-    console.log('Navigating to Etudiant Page...');
-    this.router.navigate(['/etudiant']);
+  doRefresh(event: any) {
+    setTimeout(() => {
+      this.stats.totalStudents += 1;
+      event.target.complete();
+    }, 1500);
   }
 
-  goToEnseignantPage() {
-    console.log('Navigating to Enseignant Page...');
-    this.router.navigate(['/enseignant']);
+  goToFiliere(filiereName: string) {
+    console.log('Navigation vers la filière :', filiereName);
   }
 
-  goToNotePage() {
-    console.log('Navigating to Note Page...');
-    this.router.navigate(['/note']);
-  }
-
-  goToAbsencePage() {
-    console.log('Navigating to Absence Page...');
-    this.router.navigate(['/absence']);
-  }
-
-  goToEmploiPage() {
-    console.log('Navigating to Emploi Page...');
-    this.router.navigate(['/emploi']);
-  }
-
-  goToDeliberationPage() {
-    console.log('Navigating to Deliberation Page...');
-    this.router.navigate(['/deliberation']);
-  }
+  // Méthodes de navigation à implémenter selon vos besoins
+  goToProfilePage() {}
+  goToLoginPage() {}
+  goToEtudiantPage() {}
+  goToEnseignantPage() {}
+  goToNotePage() {}
+  goToAbsencePage() {}
+  goToEmploiPage() {}
+  goToDeliberationPage() {}
 }

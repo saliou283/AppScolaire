@@ -1,158 +1,217 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
+// src/app/deliberation/deliberation.page.ts
 
-interface DeliberationResult {
-  studentId: string;
-  studentName: string;
-  class: string;
-  period: string;
-  average: number;
-  decision: 'Admis' | 'Refusé' | 'Passage conditionnel' | 'Redouble' | 'En attente';
-  comment: string;
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { 
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, 
+  IonButton, IonItem, IonLabel,  
+   IonSelect, IonSelectOption , 
+} from '@ionic/angular/standalone';
+import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { DataService } from '../services/data.service'; // Votre service de données CRUD
+import { IEtudiant } from '../etudiants/etudiants.page'; // Assurez-vous d'importer IEtudiant
+import { filter } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+
+// -------------------------------------------------------------
+// 1. INTERFACES DE DONNÉES
+// -------------------------------------------------------------
+
+// Modèle des notes brutes stockées dans Firestore
+export interface INote {
+  id?: string;
+  etudiantId: string;
+  matiere: string; // Ex: 'Maths'
+  note: number;
+  coef: number; // Coefficient de la matière
+  ects: number; // Crédits ECTS de la matière
 }
+
+// Modèle de la délibération finale (Calculé)
+export interface IDeliberationResult {
+  etudiant: IEtudiant;
+  totalPoints: number;
+  totalCoeff: number;
+  moyenneGenerale: number;
+  ectsObtenus: number;
+  ectsTotaux: number;
+  statut: 'ADMIS' | 'REFUSÉ' | 'REDOUBLEMENT';
+  details: INote[]; // Notes brutes pour affichage détaillé
+}
+
 
 @Component({
   selector: 'app-deliberation',
   templateUrl: './deliberation.page.html',
   styleUrls: ['./deliberation.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule,]
+  imports: [
+    CommonModule, FormsModule, NgIf, NgFor,
+    // Imports Ionic
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, 
+    IonButton, IonItem, IonLabel, 
+     IonSelect, IonSelectOption
+  ],
+  providers: [
+    // DataService (déjà fourni en root)
+  ]
 })
 export class DeliberationPage implements OnInit {
+  
+  // Observables des données brutes
+  etudiants$: Observable<IEtudiant[]>;
+  notes$: Observable<INote[]>;
+  public window: any = window;
 
-  allDeliberationData: DeliberationResult[] = [];
-  deliberationData: DeliberationResult[] = []; 
-  selectedClass: string = '';
-  selectedPeriod: string = '';
+  // Observable du résultat calculé
+  deliberationResults$!: Observable<IDeliberationResult[]>;
 
-  availableClasses: string[] = ['Seconde S2', 'Première S2', 'Terminale S2'];
-  availablePeriods: string[] = ['Semestre 1','Semestre 2', 'Année Complète'];
+  // Filtres
+  selectedFiliere: string = 'Toutes';
+  filieres: string[] = ['Toutes']; // Sera rempli au chargement
+  
+  readonly ETUDIANT_COLLECTION = 'etudiants';
+  readonly NOTES_COLLECTION = 'notes';
 
-  constructor(private modalController: ModalController) { }
+  constructor(
+               private dataService: DataService,
+               private alertController: AlertController,
+               private router: Router
+   ) {
+    // Initialisation des Observables de lecture
+    this.etudiants$ = this.dataService.getData<IEtudiant>(this.ETUDIANT_COLLECTION);
+    this.notes$ = this.dataService.getData<INote>(this.NOTES_COLLECTION);
+  }
+
+//nouveau
+  goToBulletinDetails(etudiantId: string) {
+  if (etudiantId) {
+    // Navigue vers /bulletin/E001, par exemple
+    this.router.navigate(['/bulletin', etudiantId]); 
+  }
+}
+
+  async showDetails(result: IDeliberationResult) {
+        const noteDetails = result.details.map(note => 
+            `${note.matiere}: ${note.note}/20 (Coef: ${note.coef}, ECTS: ${note.ects})`
+        ).join('\n'); // Formate les notes pour l'affichage
+
+        const alert = await this.alertController.create({
+            header: `Notes de ${result.etudiant.nom} (${result.statut})`,
+            subHeader: `MG: ${result.moyenneGenerale.toFixed(2)} | ECTS Obtenus: ${result.ectsObtenus}/${result.ectsTotaux}`,
+            message: noteDetails || "Aucune note trouvée.",
+            buttons: ['OK'],
+        });
+        await alert.present(); // 🚨 VÉRIFIEZ QUE VOUS APPELEZ .present()
+    }
+    
 
   ngOnInit() {
-    this.loadAllDeliberationData();
-  }
+    this.deliberationResults$ = combineLatest([
+      this.etudiants$,
+      this.notes$,
+      // Pipe pour observer les changements du filtre de filière
+      this.createFiliereFilterObservable().pipe(startWith('Toutes')) 
+    ]).pipe(
+      // Map pour effectuer le calcul et le filtrage à chaque changement de source
+      map(([etudiants, notes, filiereFiltre]) => {
+        // 1. Mise à jour des options de filière pour le filtre
+        const allFilieres = new Set(etudiants.map(e => e.filiere));
+        this.filieres = ['Toutes', ...Array.from(allFilieres)];
 
-  loadAllDeliberationData() {
-    this.allDeliberationData = [
-      
-      //Seconde S2 semestre 1
-      { studentId: '1', studentName: 'Modou Gueye', class: 'Seconde S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Passable.' },
-      { studentId: '2', studentName: 'Nafi Diop', class: 'Seconde S2', period: 'Semestre 1', average: 10.8, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en Algorithme.' },
-      { studentId: '3', studentName: 'Samba Sarr', class: 'Seconde S2', period: 'Semestre 1', average: 16.12, decision: 'Admis', comment: 'Excellent.' },
-      { studentId: '4', studentName: 'Astou Fall', class: 'Seconde S2', period: 'Semestre 1', average: 11.2, decision: 'Admis', comment: 'Résultats stables.' },
-      { studentId: '5', studentName: 'Diodio Ndiaye', class: 'Seconde S2', period: 'Semestre 1', average: 13, decision: 'Admis', comment: 'Bon Travail.' },
-      { studentId: '10', studentName: 'Oussmane Sow', class: 'Seconde S2', period: 'Semestre 1', average: 14, decision: 'Admis', comment: 'Trés bien'},
-      { studentId: '5', studentName: 'Coumba ', class: 'Seconde S2', period: 'Semestre 1', average: 11.02, decision: 'Admis', comment: 'Assez bien.' },
-      { studentId: '6', studentName: 'Moustapha Séne', class: 'Seconde S2', period: 'Semestre 1', average: 8.61, decision: 'Redouble', comment: 'Faible.' },
-      { studentId: '7', studentName: 'Radia ', class: 'Seconde S2', period: 'Semestre 1', average: 12, decision: 'Admis', comment: 'Bien.' },
-      { studentId: '8', studentName: 'Djilly Gaye', class: 'Seconde S2', period: 'Semestre 1', average: 15.2, decision: 'Admis', comment: 'Trés bien.' },
-      { studentId: '7', studentName: 'Rama Sow', class: 'Seconde S2', period: 'Semestre 1', average: 12.32, decision: 'Admis', comment: 'Bien.' },
-      { studentId: '8', studentName: 'Aminata ', class: 'Seconde S2', period: 'Semestre 1', average: 11.2, decision: 'Admis', comment: 'bien.' },
-      { studentId: '8', studentName: 'Diouma Dione', class: 'Seconde S2', period: 'Semestre 1', average: 15, decision: 'Admis', comment: 'Trés bien.' },
-      { studentId: '9', studentName: 'Ablaye Ba', class: 'Seconde S2', period: 'Semestre 1', average: 15.1, decision: 'Admis', comment: 'Excellent travail.' },
-      { studentId: '10', studentName: 'Ndeye Maty', class: 'Seconde S2', period: 'Semestre 1', average: 10.1, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en SVT.'},
-      { studentId: '11', studentName: 'Samba Ngom', class: 'Seconde S2', period: 'Semestre 1', average: 8.98, decision: 'Redouble', comment: 'Faible,' },
-      { studentId: '12', studentName: 'Faty Seye', class: 'Seconde S2', period: 'Semestre 1', average: 13, decision: 'Admis', comment: 'Bien,' },
-      { studentId: '12', studentName: 'Bamba Ndour', class: 'Seconde S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Assez bien,' },
-      { studentId: '13', studentName: 'Nafissatou Sy', class: 'Seconde S2', period: 'Semestre 1', average: 15, decision: 'Admis', comment: 'Trés Bien,' },
-      { studentId: '14', studentName: 'Daouda Faye', class: 'Seconde S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Passable,' },
-      
-      // Seconde S2 semestre 2
-
-      { studentId: '15', studentName: 'Nabou Ndiaye', class: 'Seconde S2', period: 'Semestre 2', average: 14.5, decision: 'Admis', comment: 'Bon Semestre, continuez ainsi.' },
-      { studentId: '16', studentName: 'Mary Diaw', class: 'Seconde S2', period: 'Semestre 2', average: 10.8, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en français.' },
-      { studentId: '17', studentName: 'amadou Dia ', class: 'Seconde S2', period: 'Semestre 2', average: 16.12, decision: 'Admis', comment: 'Excellent.' },
-      { studentId: '18', studentName: 'Astou ', class: 'Seconde S2', period: 'Semestre 2 ', average: 11.2, decision: 'Admis', comment: 'Résultats stables.' },
-      { studentId: '19', studentName: 'Diodio ', class: 'Seconde S2', period: 'Semestre 2', average: 13, decision: 'Admis', comment: 'Bon Travail.' },
-      { studentId: '20', studentName: 'Oussmane', class: 'Seconde S2', period: 'Semestre 2', average: 14, decision: 'Admis', comment: 'Trés bien'},
-      { studentId: '21', studentName: 'Coumba ', class: 'Seconde S2', period: 'Semestre 2', average: 11.02, decision: 'Admis', comment: 'Assez bien.' },
-      { studentId: '22', studentName: 'Moustapha ', class: 'Seconde S2', period: 'Semestre 2', average: 8.61, decision: 'Redouble', comment: 'Faible.' },
-      { studentId: '23', studentName: 'Radia ', class: 'Seconde S2', period: 'Semestre 2', average: 12, decision: 'Admis', comment: 'Bien.' },
-      { studentId: '24', studentName: 'Djilly ', class: 'Seconde S2', period: 'Semestre 2', average: 15.2, decision: 'Admis', comment: 'Trés bien.' },
-      { studentId: '25', studentName: 'Rama ', class: 'Seconde S2', period: 'Semestre 2', average: 12.32, decision: 'Admis', comment: 'Bien.' },
-      { studentId: '26', studentName: 'Aminata ', class: 'Seconde S2', period: 'Semestre 2', average: 11.2, decision: 'Admis', comment: 'bien.' },
-      { studentId: '27', studentName: 'Diouma ', class: 'Seconde S2', period: 'Semestre 2', average: 15, decision: 'Admis', comment: 'Trés bien.' },
-      { studentId: '28', studentName: 'Ablaye', class: 'Seconde S2', period: 'Semestre 2', average: 15.1, decision: 'Admis', comment: 'Excellent travail.' },
-      { studentId: '29', studentName: 'Ndeye Maty', class: 'Seconde S2', period: 'Semestre 2', average: 10.1, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en math.'},
-      { studentId: '30', studentName: 'Doudou Ndoye', class: 'Seconde S2', period: 'Semestre 2', average: 7.98, decision: 'Redouble', comment: 'Faible,' },
-      { studentId: '31', studentName: 'Fatou Diouf', class: 'Seconde S2', period: 'Semestre 2', average: 12, decision: 'Admis', comment: 'Bien,' },
-      { studentId: '32', studentName: 'Bamba Sylla', class: 'Seconde S2', period: 'Semestre 2', average: 10, decision: 'Admis', comment: 'Assez bien,' },
-      { studentId: '33', studentName: 'Nafissatou', class: 'Seconde S2', period: 'Semestre 2', average: 14, decision: 'Admis', comment: 'Trés Bien,' },
-      { studentId: '34', studentName: 'Daouda', class: 'Seconde S2', period: 'Semestre 2', average: 11, decision: 'Admis', comment: 'Passable,' },
+        // 2. Filtrage des étudiants
+        const etudiantsFiltres = etudiants.filter(e => 
+          filiereFiltre === 'Toutes' || e.filiere === filiereFiltre
+        );
         
-     //premiere S2 semestre 1
-     { studentId: '9', studentName: 'Ablaye Ba', class: 'Première S2', period: 'Semestre 1', average: 15.1, decision: 'Admis', comment: 'Excellent travail.' },
-      { studentId: '10', studentName: 'Ndeye Maty', class: 'Première S2', period: 'Semestre 1', average: 10.1, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en espagnol.'},
-      { studentId: '11', studentName: 'Samba Ngom', class: 'Première S2', period: 'Semestre 1', average: 8.98, decision: 'Redouble', comment: 'Faible,' },
-      { studentId: '12', studentName: 'Faty Seye', class: 'Première S2', period: 'Semestre 1', average: 13, decision: 'Admis', comment: 'Bien,' },
-      { studentId: '12', studentName: 'Bamba Ndour', class: 'Première S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Assez bien,' },
-      { studentId: '13', studentName: 'Nafissatou Sy', class: 'Première S2', period: 'Semestre 1', average: 15, decision: 'Admis', comment: 'Trés Bien,' },
-      { studentId: '14', studentName: 'Daouda Faye', class: 'Première S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Passable,' },
-      
-
-      //premiere S2 semestre 2
-
-      { studentId: '27', studentName: 'Diouma ', class: 'Première S2', period: 'Semestre 2', average: 15, decision: 'Admis', comment: 'Trés bien.' },
-      { studentId: '28', studentName: 'Ablaye', class: 'Première S2', period: 'Semestre 2', average: 15.1, decision: 'Admis', comment: 'Excellent travail.' },
-      { studentId: '29', studentName: 'Ndeye Maty', class: 'Première S2', period: 'Semestre 2', average: 10.1, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en PC.'},
-      { studentId: '30', studentName: 'Doudou Ndoye', class: 'Première S2', period: 'Semestre 2', average: 7.98, decision: 'Redouble', comment: 'Faible,' },
-      { studentId: '31', studentName: 'Fatou Diouf', class: 'Première S2', period: 'Semestre 2', average: 12, decision: 'Admis', comment: 'Bien,' },
-      { studentId: '32', studentName: 'Bamba Sylla', class: 'Première S2', period: 'Semestre 2', average: 10, decision: 'Admis', comment: 'Assez bien,' },
-      { studentId: '33', studentName: 'Nafissatou', class: 'Première S2', period: 'Semestre 2', average: 14, decision: 'Admis', comment: 'Trés Bien,' },
-      { studentId: '34', studentName: 'Daouda', class: 'Première S2', period: 'Semestre 2', average: 11, decision: 'Admis', comment: 'Passable,' },
+        // 3. Calcul de la délibération
+        return this.calculateDeliberation(etudiantsFiltres, notes);
+      })
+    );
+  }
   
-     //Terminal S2 semestre 1
-       { studentId: '9', studentName: 'Ablaye Ba', class: 'Terminale S2', period: 'Semestre 1', average: 15.1, decision: 'Admis', comment: 'Excellent travail.' },
-      { studentId: '10', studentName: 'Ndeye Maty', class: 'Terminale S2', period: 'Semestre 1', average: 10.1, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en Français.'},
-      { studentId: '11', studentName: 'Samba Ngom', class: 'Terminale S2', period: 'Semestre 1', average: 8.98, decision: 'Redouble', comment: 'Faible,' },
-      { studentId: '12', studentName: 'Faty Seye', class: 'Terminale S2', period: 'Semestre 1', average: 13, decision: 'Admis', comment: 'Bien,' },
-      { studentId: '12', studentName: 'Bamba Ndour', class: 'Terminale S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Assez bien,' },
-      { studentId: '13', studentName: 'Nafissatou Sy', class: 'Terminale S2', period: 'Semestre 1', average: 15, decision: 'Admis', comment: 'Trés Bien,' },
-      { studentId: '14', studentName: 'Daouda Faye', class: 'Terminale S2', period: 'Semestre 1', average: 11, decision: 'Admis', comment: 'Passable,' },
-      
-
-     //Terminal S2 semestre 2
-      { studentId: '27', studentName: 'Diouma ', class: 'Terminale S2', period: 'Semestre 2', average: 15, decision: 'Admis', comment: 'Trés bien.' },
-      { studentId: '28', studentName: 'Ablaye', class: 'Terminale S2', period: 'Semestre 2', average: 15.1, decision: 'Admis', comment: 'Excellent travail.' },
-      { studentId: '29', studentName: 'Ndeye Maty', class: 'Terminale S2', period: 'Semestre 2', average: 10.1, decision: 'Passage conditionnel', comment: 'Des efforts sont nécessaires en SVT.'},
-      { studentId: '30', studentName: 'Doudou Ndoye', class: 'Terminale S2', period: 'Semestre 2', average: 7.98, decision: 'Redouble', comment: 'Faible,' },
-      { studentId: '31', studentName: 'Fatou Diouf', class: 'Terminale S2', period: 'Semestre 2', average: 12, decision: 'Admis', comment: 'Bien,' },
-      { studentId: '32', studentName: 'Bamba Sylla', class: 'Terminale S2', period: 'Semestre 2', average: 10, decision: 'Admis', comment: 'Assez bien,' },
-      { studentId: '33', studentName: 'Nafissatou', class: 'Terminale S2', period: 'Semestre 2', average: 14, decision: 'Admis', comment: 'Trés Bien,' },
-      { studentId: '34', studentName: 'Daouda', class: 'Terminale S2', period: 'Semestre 2', average: 11, decision: 'Admis', comment: 'Passable,' },
-  
-    ];
-
-    this.loadDeliberationData();
+  // Crée un Observable basé sur le changement de la propriété selectedFiliere
+  private createFiliereFilterObservable(): Observable<string> {
+    return new Observable(observer => {
+      // Pour une implémentation plus propre, utilisez un Subject à la place de cette fonction
+      // simple qui dépend de l'événement (change) dans le template.
+      // Dans le HTML, l'événement (ionChange) appellera loadFilteredResults() qui met à jour selectedFiliere.
+      observer.next(this.selectedFiliere);
+    });
   }
 
-  loadDeliberationData() {
-    if (this.selectedClass && this.selectedPeriod) {
-      this.deliberationData = this.allDeliberationData.filter(
-        data => data.class === this.selectedClass && data.period === this.selectedPeriod
-      );
-    } else {
-      this.deliberationData = [];
+  // Méthode appelée par le HTML pour mettre à jour le filtre
+  loadFilteredResults(event: any) {
+    this.selectedFiliere = event.detail.value;
+    // La mise à jour de selectedFiliere déclenche le re-calcul via combineLatest
+  }
+
+  /**
+   * Logique de calcul de la délibération pour chaque étudiant.
+   */
+  private calculateDeliberation(etudiants: IEtudiant[], notes: INote[]): IDeliberationResult[] {
+    const results: IDeliberationResult[] = [];
+    const notesByStudent = notes.reduce((acc, note) => {
+      (acc[note.etudiantId] = acc[note.etudiantId] || []).push(note);
+      return acc;
+    }, {} as Record<string, INote[]>);
+
+    for (const etudiant of etudiants) {
+      const studentNotes = notesByStudent[etudiant.id!] || [];
+      
+      let totalPoints = 0;
+      let totalCoeff = 0;
+      let ectsObtenus = 0;
+      let ectsTotaux = 0;
+      
+      // Calcul des points, coefficients et ECTS
+      studentNotes.forEach(note => {
+        totalPoints += note.note * note.coef;
+        totalCoeff += note.coef;
+        ectsTotaux += note.ects;
+
+        // Règle de validation des ECTS : La note doit être >= 10
+        if (note.note >= 10) {
+          ectsObtenus += note.ects;
+        }
+      });
+
+      const moyenneGenerale = totalCoeff > 0 ? (totalPoints / totalCoeff) : 0;
+
+      // Détermination du Statut (Règles simplifiées)
+      let statut: IDeliberationResult['statut'];
+      
+      // Condition 1 : Moyenne Générale
+      if (moyenneGenerale >= 12) {
+        statut = 'ADMIS';
+      } else if (moyenneGenerale >= 10) {
+        // Condition 2 : Rattrapage possible (si moyenne >= 10)
+        // Peut être complexifié avec des règles de compensation.
+        statut = 'ADMIS'; 
+      } else {
+        // Condition 3 : Echec direct
+        statut = 'REFUSÉ'; 
+      }
+      
+      // Affinement du statut basé sur le taux d'ECTS
+      if (ectsObtenus < ectsTotaux * 0.5 && moyenneGenerale < 10) {
+           statut = 'REDOUBLEMENT';
+      }
+
+      results.push({
+        etudiant: etudiant,
+        totalPoints,
+        totalCoeff,
+        moyenneGenerale,
+        ectsObtenus,
+        ectsTotaux,
+        statut,
+        details: studentNotes
+      });
     }
-  }
 
-  async generateReports() {
-    console.log('Générer les relevés pour la sélection actuelle');
-    alert('Fonctionnalité de génération de relevés à implémenter (ex: PDF).');
-  }
-
-  async viewStudentReport(studentId: string) {
-    console.log('Voir le relevé de l\'étudiant :', studentId);
-    alert(`Afficher le relevé détaillé pour l'étudiant ${studentId} à implémenter.`);
-  }
-
-  async editDeliberation(result: DeliberationResult) {
-    console.log('Modifier la délibération pour :', result);
-    alert(`Modifier la décision/commentaire pour ${result.studentName} à implémenter.`);
+    return results;
   }
 }

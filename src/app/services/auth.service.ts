@@ -1,36 +1,24 @@
-// src/app/services/auth.service.ts
-
 import { Injectable } from '@angular/core';
-// ... autres imports (HttpClient, etc.)
+import { Auth, signInWithEmailAndPassword, UserCredential } from '@angular/fire/auth'; 
+// Si vous utilisez d'anciennes versions, l'importation de 'Auth' pourrait être différente.
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  // ... (votre constructeur et autres propriétés)
+  // 🔑 Injecter le module d'authentification Firebase (Auth)
+  constructor(private auth: Auth) { } 
 
   /**
-   * Tente de connecter l'utilisateur en appelant l'API.
-   * Cette méthode manquait ou était mal nommée.
+   * Tente de connecter un utilisateur avec un email et un mot de passe.
+   * @param email L'email de l'utilisateur.
+   * @param password Le mot de passe de l'utilisateur.
+   * @returns Une promesse contenant les identifiants de l'utilisateur (UserCredential).
    */
-  async login(email: string, password: string): Promise<boolean> {
+  async signIn(email: string, password: string): Promise<UserCredential> {
     
-    // Assurez-vous que cette méthode existe bien ici.
-    // C'est le corps de la fonction que le login.page.ts tente d'appeler.
-
-    // Exemple de logique temporaire :
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simuler un délai
-    
-    if (email === 'test@ecole.com' && password === '12345') {
-        console.log('Connexion réussie simulée.');
-        // Logique de stockage du token ici...
-        return true; 
-    } else {
-        console.log('Échec de la connexion simulé.');
-        return false;
-    }
+    // 💥 C'EST CETTE MÉTHODE QUI MANQUAIT 💥
+    return await signInWithEmailAndPassword(this.auth, email, password);
   }
-
-  // ... (autres méthodes comme logout, getToken, etc.)
 }

@@ -3,83 +3,82 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Délibérations</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="generateReports()">
-        <ion-icon name="document-text-outline"></ion-icon>
-        <span class="d-none d-md-inline ms-2">Générer Bulletin</span>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-title>🏆 Délibération Annuelle</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div class="container mt-4">
+  <div class="container">
 
-    <h2 class="mb-4">Processus de Délibération et Bulletin</h2>
+    <h2 class="mb-4">Résultats des Étudiants</h2>
 
-    <div class="row mb-3 g-2">
-      <div class="col-md-6">
-        <select class="form-select" [(ngModel)]="selectedClass" (change)="loadDeliberationData()">
-          <option value="">Sélectionner une classe</option>
-          <option *ngFor="let classOption of availableClasses" [value]="classOption">{{ classOption }}</option>
-        </select>
+    <ion-item class="mb-3">
+      <ion-label position="floating">Filtrer par Filière</ion-label>
+      <ion-select 
+        [(ngModel)]="selectedFiliere" 
+        (ionChange)="loadFilteredResults($event)"
+        interface="popover">
+        <ion-select-option *ngFor="let filiere of filieres" [value]="filiere">
+          {{ filiere }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <div *ngIf="deliberationResults$ | async as results" class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Étudiant</th>
+            <th>Filière</th>
+            <th>Moyenne Générale (MG)</th>
+            <th>ECTS Obtenus</th>
+            <th>Statut</th>
+            <th>Détails</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results">
+            <td class="text-start">
+              <strong>{{ result.etudiant.nom }}</strong>
+              <small class="text-muted d-block">{{ result.etudiant.matricule }}</small>
+            </td>
+            <td>{{ result.etudiant.filiere }}</td>
+            <td [ngClass]="{
+                  'text-success': result.moyenneGenerale >= 12,
+                  'text-warning': result.moyenneGenerale >= 10 && result.moyenneGenerale < 12,
+                  'text-danger': result.moyenneGenerale < 10
+                }">
+              {{ result.moyenneGenerale | number : '1.2-2' }}
+            </td>
+            <td>
+              {{ result.ectsObtenus }} / {{ result.ectsTotaux }}
+            </td>
+            <td>
+              <span class="badge" 
+                    [ngClass]="{
+                      'bg-success': result.statut === 'ADMIS',
+                      'bg-danger': result.statut === 'REFUSÉ' || result.statut === 'REDOUBLEMENT'
+                    }">
+                {{ result.statut }}
+              </span>
+            </td>
+            <td>
+              <ion-button 
+  size="small" 
+  fill="outline" 
+  color="secondary" 
+  (click)="goToBulletinDetails(result.etudiant.id!)">
+  Voir Bulletin
+</ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="results.length === 0" class="alert alert-info mt-3" role="alert">
+        Aucun résultat de délibération trouvé pour la sélection.
       </div>
-      <div class="col-md-6">
-        <select class="form-select" [(ngModel)]="selectedPeriod" (change)="loadDeliberationData()">
-          <option value="">Sélectionner un Semestre</option>
-          <option *ngFor="let periodOption of availablePeriods" [value]="periodOption">{{ periodOption }}</option>
-        </select>
-      </div>
-    </div>
 
-    <div *ngIf="selectedClass && selectedPeriod && deliberationData.length > 0">
-      <h3 class="mt-4">Résultats de la délibération pour {{ selectedClass }} - {{ selectedPeriod }}</h3>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Étève</th>
-              <th scope="col">Moyenne Générale</th>
-              <th scope="col">Décision</th>
-              <th scope="col">Commentaire du Conseil</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let studentResult of deliberationData">
-              <td>{{ studentResult.studentName }}</td>
-              <td>
-                <span [ngClass]="{'text-danger': studentResult.average < 10, 'text-success': studentResult.average >= 12}">
-                  {{ studentResult.average | number:'1.2-2' }}
-                </span> / 20
-              </td>
-              <td>
-                <span [ngClass]="{'badge bg-success': studentResult.decision === 'Admis', 'badge bg-danger': studentResult.decision === 'Refusé', 'badge bg-warning': studentResult.decision === 'Passage conditionnel'}">
-                  {{ studentResult.decision }}
-                </span>
-              </td>
-              <td>{{ studentResult.comment }}</td>
-              <td>
-                <button class="btn btn-sm btn-outline-primary me-2" (click)="viewStudentReport(studentResult.studentId)">
-                  <ion-icon name="eye-outline"></ion-icon> Bulletin
-                </button>
-                <button class="btn btn-sm btn-outline-info" (click)="editDeliberation(studentResult)">
-                  <ion-icon name="create-outline"></ion-icon>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
-
-    <div *ngIf="!selectedClass || !selectedPeriod" class="alert alert-info mt-3" role="alert">
-      Veuillez sélectionner une classe et un Semestre pour afficher les résultats de délibération.
-    </div>
-    <div *ngIf="selectedClass && selectedPeriod && deliberationData.length === 0" class="alert alert-warning mt-3" role="alert">
-      Aucune donnée de délibération disponible pour cette sélection.
-    </div>
-
   </div>
 </ion-content>

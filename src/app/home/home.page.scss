@@ -1,105 +1,121 @@
-/* --- Background général pour le Dashboard --- */
-.dashboard-background {
-  --background: #091d3af3; /* Un fond très clair et doux */
+.dashboard-main-content {
+  --background: #0f1c30; // Fond sombre type "GitHub Dark"
+  font-family: 'Inter', sans-serif;
+
+
+  // Header
+  .header-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background: #27374e;
+    border-bottom: 1px solid #6e757e;
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      background: #f6f7f8;
+      border-radius: 15px;
+      padding-left: 10px;
+      width: 50%;
+      ion-icon { color: #f3f5f8; }
+      .custom-search { --background: transparent; --color: rgb(10, 10, 10); }
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: #fff;
+
+      .server-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #3fb950;
+        font-size: 0.8rem;
+        .pulse-dot {
+          width: 8px; height: 8px; background: #3fb950; border-radius: 50%;
+          box-shadow: 0 0 10px #3fb950; animation: blink 2s infinite;
+        }
+      }
+      .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #30363d; }
+    }
+  }
+
+  // Welcome Banner
+  .welcome-banner {
+    margin: 20px;
+    padding: 30px;
+    background: linear-gradient(135deg, #1f6feb 0%, #19c95c 100%);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+
+    h1 { 
+      font-size: 2.2rem; color: white; margin: 10px 0; 
+      span { color: #fff; }
+    }
+    p { color: #c9d1d9; font-size: 1.1rem; }
+    .kicker { color: rgba(255,255,255,0.6); font-weight: bold; font-size: 0.7rem; letter-spacing: 2px; }
+    .action-btn { --background: white; --color: #191f27; font-weight: bold; margin-top: 20px; }
+  }
+
+  // Stat Cards
+  .stat-card {
+    background: #19191a;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .icon-box {
+      padding: 12px; border-radius: 10px; font-size: 1.5rem;
+    }
+    .stat-info {
+      h3 { margin: 0; color: white; font-weight: bold; }
+      p { margin: 0; color: #fafbfc; font-size: 0.8rem; }
+    }
+
+    &.blue .icon-box { color: #1367c7; }
+    &.green .icon-box {  color: #15e431; }
+    &.orange .icon-box {  color: #d29922; }
+    &.red .icon-box {  color: #f85149; }
+  }
+
+  // Panels
+  .content-panel {
+    background: #202853;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 10px;
+    border: 1px solid #a8b9cc;
+    h2 { 
+      color: white; 
+      font-size: 1.1rem; 
+      margin-bottom: 20px; 
+      text-align: center;
+    }
+  }
+
+  // Filière Cards
+  .filiere-card {
+    background: #f4f7f5;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    color: rgb(168, 141, 141);
+    border-bottom: 4px solid #39608d;
+    transition: 0.3s;
+    &:hover { transform: translateY(-5px); border-color: #4a85c5; }
+    &.ida { border-color: #58a6ff; }
+    &.mic { border-color: #3fb950; }
+    &.cd { border-color: #ebea42;  }
+    &.agn { border-color: #c73358; }
+  }
 }
 
-/* --- Bannière de Bienvenue Condensée --- */
-.welcome-banner {
-  padding: 15px 10px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee12b;
-}
-
-.welcome-banner h2 {
-  font-weight: 700;
-  font-size: 1.6em;
-  color: var(--ion-color-primary, #ffeb38); /* Utilise la couleur primaire Ionic */
-  margin: 0;
-  text-align: center;
-}
-
-.stats-summary {
-  color: #fffefe;
-  font-size: 0.85em;
-  margin-top: 5px;
-  text-align: center;
-}
-
-/* --- Cartes de Statistiques Clés --- */
-.stat-card {
-  text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  margin: 8px 0;
-}
-
-.stat-card ion-card-title {
-  font-size: 2em;
-  font-weight: 700;
-  margin: 0;
-}
-
-.stat-card ion-card-content {
-  font-size: 0.9em;
-  padding-top: 0;
-  color: #333;
-}
-
-.stat-icon {
-  font-size: 2.2em;
-  padding-bottom: 5px;
-}
-
-/* Couleurs Thématiques pour les Stats */
-.color-students {
-  --background: #e5f324;
-  color: #1890ff;
-}
-.color-teachers {
-  --background: #80e2a5; 
-  color: #faad14;
-}
-
-/* --- Grille d'Accès Rapide (Tiles) --- */
-.quick-access-grid {
-  padding: 0;
-}
-h2 { 
-  color: #eee12b;
-}
-.access-tile {
-  background: var(--ion-color-light, #bef37a);
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  text-align: center;
-  padding: 15px 5px;
-  margin: 8px 0;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(8, 8, 8, 0.05);
-}
-
-.access-tile:hover {
-  background: var(--ion-color-primary-tint, #232d4d);
-  color: rgb(22, 22, 22);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px #f8f6f6e0;
-}
-
-.access-tile:hover .tile-icon {
-    color: white !important;
-}
-
-.tile-icon {
-  font-size: 3em;
-  color: var(--ion-color-primary, #3880ff);
-  margin-bottom: 5px;
-  transition: color 0.2s;
-}
-
-.access-tile p {
-  font-size: 0.85em;
-  font-weight: 600;
-  margin: 0;
-  line-height: 1.2;
-}
+@keyframes blink { 0% { opacity: 2; } 50% { opacity: 0.4; } 100% { opacity: 1; } }

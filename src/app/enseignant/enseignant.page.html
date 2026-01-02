@@ -1,201 +1,65 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Gestion des Enseignants</ion-title>
+<ion-header>
+  <ion-toolbar color="primary"> <ion-title>🏠 Tableau de Bord Enseignant</ion-title>
     <ion-buttons slot="end">
-      <ion-button id="openAddTeacherModal">
-       
-      </ion-button>
+      <ion-button><ion-icon name="notifications-outline"></ion-icon></ion-button>
+      <ion-button><ion-icon name="person-circle-outline"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="container mt-4">
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Bonjour Monsieur POUYE,</ion-card-title>
+      <ion-card-subtitle>Aperçu des tâches pour aujourd'hui, {{ '14 Décembre 2025' }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2>Liste des Enseignants du lycée</h2>
-      
-    </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="card-title">📚 Mes Classes du Jour</ion-card-title>
+    </ion-card-header>
+    <ion-list lines="none">
+      <ion-item *ngFor="let classe of classesDuJour">
+        <ion-icon name="time-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h2>{{ classe.heure }} - {{ classe.matiere }}</h2>
+          <p>{{ classe.nomClasse }} (Salle {{ classe.salle }})</p>
+        </ion-label>
+        <ion-button slot="end" size="small" fill="outline" color="primary">
+          Ouvrir l'Appel
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Rechercher un enseignant..." aria-label="Rechercher un enseignant">
-      <button class="btn btn-outline-secondary" type="button">Rechercher</button>
-    </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="card-title">📝 Saisie des Notes en Attente</ion-card-title>
+      <ion-card-subtitle>Évaluations non finalisées ou à venir.</ion-card-subtitle>
+    </ion-card-header>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-hover align-middle">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Prénom</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Matière(s)</th>
-            <th scope="col">Email</th>
-            <th scope="col">Tél</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row"></th>
-            <td>Aminata</td>
-            <td>Sall</td>
-            <td>Espagnol</td>
-            <td>aminatasall85&#64;gmail.com</td>
-             <td>772802724</td>
-            <td>
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td>Abdou</td>
-            <td>Ndiaye</td>
-            <td> Mathèmatique</td>
-            <td>abdoundiaye&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td>Aliou</td>
-            <td>Faye</td>
-            <td>Français</td>
-            <td>alioufaye200&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td>Mamadou </td>
-            <td>Badiane</td>
-            <td>SVT</td>
-            <td>mamadoubadiane&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td>Aliou</td>
-            <td>Ngom</td>
-            <td>Philosophie</td>
-            <td>alioungom33&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td>Astou</td>
-            <td>Thiam</td>
-            <td>Hstoire et Géographie</td>
-            <td>astouthiam&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <tr>
-            
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
+    <ion-list>
+      <ion-item *ngFor="let eval of evaluationsEnAttente">
+        <ion-label>
+          <h3>{{ eval.titre }} ({{ eval.matiere }})</h3>
+          <p>Classe : {{ eval.classe }} | Limite : {{ eval.dateLimite }}</p>
+        </ion-label>
+        <ion-button 
+            slot="end" 
+            size="small" 
+            [color]="eval.notesSaisies === 0 ? 'danger' : 'warning'"
+            (click)="ouvrirSaisieNotes(eval)">
+          Saisir ({{ eval.notesSaisies }} / {{ eval.notesTotal }})
+        </ion-button>
+      </ion-item>
+    </ion-list>
 
-           <tr>
-            <th scope="row"></th>
-            <td>Nogaye</td>
-            <td>Ndiaye</td>
-            <td>Hstoire et Géographie</td>
-            <td>nogayendiaye21&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <tr>
-            
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
+    <ion-card-content>
+      <ion-note slot="end">
+        <a href="/saisie-notes">Voir toutes les évaluations en cours</a>
+      </ion-note>
+    </ion-card-content>
+  </ion-card>
 
-           <tr>
-            <th scope="row"></th>
-            <td>Doudou</td>
-            <td>Dia</td>
-            <td>Arabe</td>
-            <td>doudoudia2021&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <tr>
-            
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-
-           <tr>
-            <th scope="row"></th>
-            <td>Fatou</td>
-            <td>Sarr</td>
-            <td>Anglais</td>
-            <td>fatousarr12&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <tr>
-            
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-
-           <tr>
-            <th scope="row"></th>
-            <td>Diouma</td>
-            <td>Diop</td>
-            <td>Portugais</td>
-            <td>dioumadioup1&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <tr>
-            
-              <button type="button" class="btn btn-sm btn-info me-2">Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-            </td>
-          </tr>
-
-           <tr>
-            <th scope="row"></th>
-            <td>Saliou</td>
-            <td>Diouf</td>
-            <td>PC</td>
-            <td>salioudiouf&#64;gmail.com</td>
-            <td>772802724</td>
-            <td>
-              <tr>
-            
-              <button type="button" class="btn btn-sm btn-info me-2" >Modifier</button>
-              <button type="button" class="btn btn-sm btn-danger">Supprimer</button>
-              </tr>
-            </td>
-            </tr>
-          
-          
-        </tbody>
-      </table>
-    </div>
-  </div>
-
- 
 </ion-content>

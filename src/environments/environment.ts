@@ -1,16 +1,35 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+// src/environments/environment.ts
 
 export const environment = {
-  production: false
+  // --- Propriété de Détection de Mode ---
+  production: false, 
+  
+  // --- Configuration Firebase ---
+  firebase: {
+    apiKey: "AIzaSyCNliXDfrwPrNTqD16dh0Q80iUvb-PhWuc",
+    authDomain: "idascolaire.firebaseapp.com",
+    projectId: "idascolaire",
+    storageBucket: "idascolaire.firebasestorage.app",
+    messagingSenderId: "568203670987",
+     appId: "1:568203670987:web:d3b28748f6600b9709b24e",
+     measurementId: "G-BP6R1XKS2K"
+  }
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+/*const firebaseConfig = {
+
+  apiKey: "AIzaSyCNliXDfrwPrNTqD16dh0Q80iUvb-PhWuc",
+
+  authDomain: "idascolaire.firebaseapp.com",
+
+  projectId: "idascolaire",
+
+  storageBucket: "idascolaire.firebasestorage.app",
+
+  messagingSenderId: "568203670987",
+
+  appId: "1:568203670987:web:d3b28748f6600b9709b24e",
+
+  measurementId: "G-BP6R1XKS2K"
+
+};*/

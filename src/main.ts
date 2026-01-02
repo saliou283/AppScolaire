@@ -1,69 +1,55 @@
-// src/main.ts
 import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import '@angular/compiler'; 
 
+
+// Configuration Firebase
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from './environments/environment';
+
+// Routes et Composant Principal
+import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { routes } from './app/app.routes'; // Importe vos routes
 
-
-// Importez ici les icônes Ionicons que vous utilisez dans votre application
-// Cela permet de ne charger que les icônes nécessaires, réduisant la taille de l'application.
+// Icônes
 import { addIcons } from 'ionicons';
 import {
-  personCircleOutline, // Exemple d'icône pour un profil
-  logInOutline,       // Exemple pour un bouton de connexion
-  documentTextOutline, // Exemple pour un rapport/document
-  addCircleOutline,    // Exemple pour ajouter un élément
-  trashOutline,        // Exemple pour supprimer
-  createOutline,       // Exemple pour modifier
-  eyeOutline,          // Exemple pour visualiser
-  calendarOutline,     // Exemple pour un calendrier/emploi du temps
-  personAddOutline,    // Exemple pour ajouter une personne (étudiant/enseignant)
-  menuOutline,         // Pour le bouton de menu latéral (<ion-menu-button>)
-  arrowBackOutline,    // Pour le bouton retour (<ion-back-button>)
-  // Ajoutez toutes les autres icônes que vous utilisez dans votre HTML
-  // par exemple: homeOutline, settingsOutline, warningOutline, etc.
+  personCircleOutline, logInOutline, documentTextOutline, addCircleOutline, 
+  trashOutline, createOutline, eyeOutline, calendarOutline, personAddOutline, 
+  menuOutline, arrowBackOutline, school, timeOutline, gridOutline, 
+  peopleOutline, briefcaseOutline, receiptOutline, mailOutline, moonOutline,
+  notificationsOutline, searchOutline, wallet, warning, checkmarkCircle, people
 } from 'ionicons/icons';
 
+// 1. Enregistrement global des icônes (pour éviter de le refaire partout)
+addIcons({
+  personCircleOutline, logInOutline, documentTextOutline, addCircleOutline, 
+  trashOutline, createOutline, eyeOutline, calendarOutline, personAddOutline, 
+  menuOutline, arrowBackOutline, school, timeOutline, gridOutline, 
+  peopleOutline, briefcaseOutline, receiptOutline, mailOutline, moonOutline,
+  notificationsOutline, searchOutline, wallet, warning, checkmarkCircle, people
+});
 
-// Active le mode production si l'environnement est en production.
-// Cela désactive les contrôles de développement d'Angular pour de meilleures performances.
+// 2. Gestion du mode production
 if (environment.production) {
   enableProdMode();
 }
 
-// Enregistre les icônes Ionicons utilisées dans l'application.
-// C'est crucial pour que les icônes s'affichent et pour éviter les avertissements dans la console.
-addIcons({
-  personCircleOutline,
-  logInOutline,
-  documentTextOutline,
-  addCircleOutline,
-  trashOutline,
-  createOutline,
-  eyeOutline,
-  calendarOutline,
-  personAddOutline,
-  menuOutline,
-  arrowBackOutline,
-  // Répétez ici toutes les icônes importées ci-dessus
-});
-
-// Démarre l'application Angular avec le composant racine 'AppComponent'.
-// Le second argument est un objet de configuration pour les 'providers'.
+// 3. Un SEUL et unique bootstrapApplication
 bootstrapApplication(AppComponent, {
   providers: [
-    // Fournit une stratégie de réutilisation des routes spécifique à Ionic,
-    // ce qui aide à maintenir l'état des pages lors de la navigation avant/arrière.
-    provideZoneChangeDetection(),{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // Configure Ionic Angular. C'est nécessaire pour que les composants Ionic fonctionnent.
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    // Configure le système de routage d'Angular avec les routes définies dans 'app.routes.ts'.
     provideRouter(routes),
-    // Si vous utilisez HttpClient pour faire des requêtes API, décommentez la ligne ci-dessous:
-    // provideHttpClient(),
+
+    // Configuration Firebase & Firestore
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
-});
+}).catch((err) => console.error(err));

@@ -1,92 +1,96 @@
-// src/app/login/login.page.ts
-
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, LoadingController, AlertController } from '@ionic/angular';
-// Assurez-vous d'avoir un AuthService pour gérer la logique de connexion
-import { AuthService } from '../services/auth.service'; 
-// Importez FormsModule si vous utilisez l'approche [(ngModel)] dans votre module Angular
-// Si vous utilisez des composants standalone, vous devrez importer FormsModule dans le composant lui-même
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
+import { IonicModule } from '@ionic/angular'; 
+import { CommonModule } from '@angular/common'; 
+import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+// 🔑 IMPORTS FIREBASE DIRECTS (pour signIn et signOut) 🔑
+import { Auth, signInWithEmailAndPassword, signOut, UserCredential } from '@angular/fire/auth'; 
+
 
 @Component({
-  selector: 'app-login', 
-  templateUrl: './login.page.html', 
+  selector: 'app-login',
+  templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  
+  imports: [
+    CommonModule,
+    FormsModule, 
+    IonicModule 
+  ],
+  standalone: true
 })
-export class LoginPage implements OnInit { // <-- L'exportation nommée est ici !
+export class LoginPage implements OnInit { 
+  
+  @ViewChild('formulaireConnexion') loginForm!: NgForm; 
 
-  // Propriété qui se lie aux champs du formulaire via [(ngModel)] dans le HTML
   credentials = {
     email: '',
     password: ''
   };
 
+  // 🔑 INJECTION : Utilisation de l'objet Auth direct pour signIn et signOut
   constructor(
-    private authService: AuthService,
     private router: Router,
-    private navCtrl: NavController,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
-  ) { }
+    private auth: Auth // <-- INJECTION DIRECTE DE L'OBJET AUTH
+  ) { } 
 
   ngOnInit() {
-    // Logique d'initialisation (par exemple, vérifier si l'utilisateur est déjà connecté)
   }
 
-  /**
-   * Méthode appelée lors de la soumission du formulaire (via ngSubmit dans le HTML).
-   */
-  async login() {
-    if (!this.credentials.email || !this.credentials.password) {
-      this.showAlert('Erreur', 'Veuillez saisir votre email et votre mot de passe.');
-      return;
-    }
+  // La méthode est ASYNCHRONE pour utiliser await (Connexion)
+  async login() { 
+    const { email, password } = this.credentials;
+    console.log('Tentative de connexion avec :', email);
 
-    const loading = await this.loadingCtrl.create({
-      message: 'Vérification des identifiants...',
-      spinner: 'crescent',
-    });
-    await loading.present();
-
-    try {
-      // 1. Appeler la méthode de connexion du service
-      const success = await this.authService.login(this.credentials.email, this.credentials.password);
+    try { 
       
-      await loading.dismiss();
+      // 🚀 APPEL DIRECT À LA FONCTION FIREBASE POUR LA CONNEXION
+      const userCredential: UserCredential = await signInWithEmailAndPassword(
+        this.auth, 
+        email, 
+        password
+      ); 
+      
+      console.log('Connexion réussie. UID:', userCredential.user.uid);
+      
+      // Redirection après succès
+      this.router.navigateByUrl('/home', { replaceUrl: true }); 
 
-      if (success) {
-        // 2. Connexion réussie : rediriger vers la page d'accueil (home)
-        // Utilisez navigateRoot pour effacer l'historique et empêcher le retour à la page de connexion
-        this.navCtrl.navigateRoot('/home'); 
-      } else {
-        // 3. Échec de la connexion (mauvais identifiants)
-        this.showAlert('Échec de la connexion', 'Identifiant ou mot de passe incorrect. Veuillez réessayer.');
+    } catch (e: any) { 
+      
+      console.error('Erreur de connexion:', e.message);
+      
+      let errorMessage = "Échec de la connexion. Vérifiez vos identifiants.";
+
+      if (e.code === 'auth/wrong-password') {
+          errorMessage = "Mot de passe incorrect.";
+      } else if (e.code === 'auth/user-not-found') {
+          errorMessage = "Utilisateur non trouvé.";
       }
-    } catch (error) {
-      await loading.dismiss();
-      // 4. Gérer les erreurs inattendues (réseau, serveur, etc.)
-      console.error('Erreur lors de la tentative de connexion:', error);
-      this.showAlert('Erreur Serveur', 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.');
+      
+      alert(errorMessage); 
+    }
+  } 
+
+  // La méthode est ASYNCHRONE pour supporter la fonction Firebase (Déconnexion)
+  async logout() {
+    console.log('Tentative de déconnexion...');
+    
+    try {
+      // 🚀 Appel à la fonction Firebase pour déconnecter l'utilisateur
+      await signOut(this.auth); 
+      
+      console.log('Déconnexion réussie.');
+      
+      // 💡 Redirection vers la page de connexion
+      this.router.navigateByUrl('/login', { replaceUrl: true }); 
+      
+    } catch (e: any) {
+      console.error('Erreur lors de la déconnexion:', e);
+      alert('Erreur lors de la déconnexion. Veuillez réessayer.'); 
     }
   }
-
-  /**
-   * Navigue vers la page d'inscription.
-   */
-  goToRegister() {
-    this.router.navigateByUrl('/register');
-  }
-
-  /**
-   * Affiche une alerte Ionic pour informer l'utilisateur.
-   */
-  async showAlert(header: string, message: string) {
-    const alert = await this.alertCtrl.create({
-      header: header,
-      message: message,
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
-
 }

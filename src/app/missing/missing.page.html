@@ -1,190 +1,48 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Gestion des Absences 📝</ion-title>
+    <ion-title>📝 Gestion des Absences</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="presentAddAbsenceAlert()" color="success">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="ion-padding">
- <ion-segment  value="mark" mode="md" class="segment-action">
-      <ion-segment-button value="mark">
-        <ion-label>Saisie du Jour</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="history">
-        <ion-label>Historique / Bilan</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+  
+  <ion-list-header>
+    <ion-label>Liste des Enregistrements</ion-label>
+  </ion-list-header>
 
+  <ion-list *ngIf="absences$ | async as absences">
     
+    <ion-item *ngFor="let absence of absences">
+      <ion-label>
+        <h2>{{ absence.etudiantNom }}</h2>
+        <p>Cours : **{{ absence.cours }}**</p>
+      </ion-label>
+
+      <ion-note slot="end" [color]="absence.motif.toLowerCase().includes('non justifié') ? 'danger' : 'warning'">
+        <p>Le {{ absence.date }} ({{ absence.dureeHeures }}h)</p>
+        <p>{{ absence.motif }}</p>
+      </ion-note>
       
-      <ion-card class="ion-margin-top">
-        <ion-card-header>
-          <ion-card-title>Marquer les Absences</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          
-          <ion-grid class="ion-no-padding filter-grid">
-            <ion-row class="ion-align-items-center">
-              <ion-col size="12" size-md="6">
-                <ion-item lines="full">
-                  <ion-label position="stacked">Classe</ion-label>
-                  <ion-select placeholder="Choisir la classe">
-                    <ion-select-option value="1">Seconde</ion-select-option>
-                    <ion-select-option value="2">Première</ion-select-option>
-                    <ion-select-option value="3">Terminale</ion-select-option>
-                  </ion-select>
-                </ion-item>
-              </ion-col>
-              <ion-col size="12" size-md="6">
-                <ion-item lines="full">
-                  <ion-label position="stacked">Date</ion-label>
-                  <ion-datetime displayFormat="DD/MM/YYYY" value="2025-06-29"></ion-datetime>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+      <ion-buttons slot="end">
+        <ion-button color="danger" fill="clear" (click)="deleteAbsence(absence.id!)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
 
-          <h3 class="ion-text-start ion-padding-top">Liste des Élèves (Statut)</h3>
-
-          <ion-grid class="attendance-header">
-            <ion-row>
-              <ion-col size="5">Nom & Prénom</ion-col>
-              <ion-col size="2" class="ion-text-center">Présent</ion-col>
-              <ion-col size="2" class="ion-text-center">Justifié</ion-col>
-              <ion-col size="3">Motif</ion-col>
-            </ion-row>
-          </ion-grid>
-          
-          <ion-list class="student-attendance-list ion-margin-bottom">
-            <ion-item lines="full">
-              <ion-label slot="start" class="student-name">Awa Faye</ion-label>
-              <ion-toggle color="success" checked slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-            <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-               <ion-item lines="full" color="light">
-              <ion-label slot="start" class="student-name absent-text">Adama Niang</ion-label>
-              <ion-toggle color="success" slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" checked slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input value="Maladie" placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-            
-            
-          
-            <ion-item lines="full">
-              <ion-label slot="start" class="student-name">Awa Faye</ion-label>
-              <ion-toggle color="success" checked slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-
-            <ion-item lines="full">
-              <ion-label slot="start" class="student-name">Ngor Diouf</ion-label>
-              <ion-toggle color="success" checked slot="start" class="ion-text-center"></ion-toggle>
-              <ion-checkbox color="warning" slot="middle" class="ion-text-center"></ion-checkbox>
-              <ion-input placeholder="Motif si absent" slot="end" class="motif-input"></ion-input>
-            </ion-item>
-            </ion-list>
-
-          <ion-button expand="block" size="large" color="success">
-            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-            Valider et Enregistrer
-          </ion-button>
-          
-        </ion-card-content>
-      </ion-card>
-    
-
-    
-      
-      <ion-card class="ion-margin-top">
-        <ion-card-header>
-          <ion-card-title>Historique par Élève</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item lines="full" class="ion-margin-bottom">
-            <ion-label position="stacked">Sélectionner un élève</ion-label>
-            <ion-select placeholder="Choisir un élève...">
-              <ion-select-option value="1">Awa Faye</ion-select-option>
-              <ion-select-option value="2">Adama Niang</ion-select-option>
-              </ion-select>
-          </ion-item>
-
-          <ion-grid class="history-grid">
-            <ion-row class="history-header">
-              <ion-col size="3">Date</ion-col>
-              <ion-col size="4">Matière / Période</ion-col>
-              <ion-col size="2" class="ion-text-center">Statut</ion-col>
-              <ion-col size="3">Motif</ion-col>
-            </ion-row>
-            <ion-row class="history-data">
-              <ion-col size="3">20-06-2025</ion-col>
-              <ion-col size="4">Français (8h-9h)</ion-col>
-              <ion-col size="2" class="ion-text-center absent">Absent</ion-col>
-              <ion-col size="3">Maladie</ion-col>
-            </ion-row>
-            <ion-row class="history-data">
-              <ion-col size="3">10-06-2025</ion-col>
-              <ion-col size="4">Mathématique (11h-13h)</ion-col>
-              <ion-col size="2" class="ion-text-center present">Présent</ion-col>
-              <ion-col size="3">-</ion-col>
-            </ion-row>
-            </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    
-  </div>
+    <ion-item *ngIf="absences.length === 0">
+      <ion-label class="ion-text-center">
+        Aucun enregistrement d'absence trouvé.
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -1,72 +1,62 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Connexion Scolaire</ion-title>
+  <ion-toolbar>
+    <ion-title>Connexion</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <div class="header-content">
-    <ion-icon name="school-outline" class="app-logo"></ion-icon>
-    <h1>Bienvenue</h1>
-    <p>Gérez votre scolarité en toute simplicité.</p>
-  </div>
-
-  <ion-card class="login-card">
-    <ion-card-header>
-      <ion-card-title>Se connecter</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
+  <form #formulaireConnexion="ngForm" (ngSubmit)="login()">
+    
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input
+          label="Email"
+          type="email"
+          name="email"
+          [(ngModel)]="credentials.email"
+          required
+        ></ion-input>
+      </ion-item>
       
-      <form (ngSubmit)="login()">
-        
-        <ion-item class="input-item">
-          <ion-icon name="mail-outline" slot="start"></ion-icon>
-          <ion-input
-            label="Email ou Identifiant"
-            label-placement="floating"
-            type="email"
-            [(ngModel)]="credentials.email"
-            name="email"
-            required
-          ></ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-input
+          label="Mot de passe"
+          type="password"
+          name="password"
+          [(ngModel)]="credentials.password"
+          required
+        ></ion-input>
+      </ion-item>
+    </ion-list>
 
-        <ion-item class="input-item">
-          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-          <ion-input
-            label="Mot de passe"
-            label-placement="floating"
-            type="password"
-            [(ngModel)]="credentials.password"
-            name="password"
-            required
-          ></ion-input>
-        </ion-item>
-        
-        <ion-button 
-          expand="block" 
-          type="submit" 
-          color="primary"
-          class="ion-margin-top"
-          [disabled]="!credentials.email || !credentials.password"
-        >
-          <ion-icon name="log-in-outline" slot="start"></ion-icon>
-          Connexion
-        </ion-button>
+    <ion-button 
+      expand="block" 
+      type="submit" 
+      [disabled]="!formulaireConnexion.valid" 
+      class="ion-margin-top"
+    >
+      Se connecter
+    </ion-button>
+  </form>
 
-      </form>
-      <div class="aux-links">
-        <ion-text color="medium" (click)="goToRegister()">
-          Pas encore de compte ? <strong>S'inscrire</strong>
-        </ion-text>
-        <ion-text color="medium" routerLink="/forgot-password">
-          Mot de passe oublié ?
-        </ion-text>
-      </div>
-
-    </ion-card-content>
-  </ion-card>
-
+  <ion-button 
+    expand="block" 
+    fill="clear" 
+    routerLink="/signup"
+    class="ion-margin-top"
+  >
+    Créer un compte
+  </ion-button>
+  
 </ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button 
+    expand="block" 
+    fill="clear" 
+    color="medium"
+    (click)="logout()"
+  >
+    Déconnexion (Test)
+  </ion-button>
+</ion-footer>

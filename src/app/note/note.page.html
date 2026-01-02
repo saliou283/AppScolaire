@@ -1,163 +1,41 @@
-
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+    <ion-title>Mes Notes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentAddNoteAlert()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Gestion des Notes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="container mt-4">
+<ion-content>
+  <ion-list *ngIf="notes$ | async as notes"> 
+    <ion-list-header>
+      <ion-label>Notes (Total: {{ notes.length }})</ion-label>
+    </ion-list-header>
 
-    <h2>Consultation des Notes</h2>
+    <ion-item *ngFor="let note of notes">
+      <ion-label>
+        <h2>{{ note.titre }}</h2>
+        <p>{{ note.contenu.substring(0, 100) }}...</p>
+        <p class="ion-text-wrap" style="font-size: 0.8em; color: gray;">
+          Dernière modif: {{ note.dateModification }}
+        </p>
+      </ion-label>
+      
+      <ion-buttons slot="end">
+        <ion-button (click)="updateNote(note)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="deleteNote(note.id!)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-6">
-        <label for="selectClasse" class="form-label">Sélectionner une Classe</label>
-        <select class="form-select" id="selectClasse">
-          <option selected disabled>Choisir...</option>
-          <option value="1">Seconde S2</option>
-          <option value="2">Première S2</option>
-          <option value="3">Terminale S2</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label for="selectMatiere" class="form-label">Sélectionner une Matière</label>
-        <select class="form-select" id="selectMatiere">
-          <option selected disabled>Choisir...</option>
-          <option value="1"></option>
-          <option value="2">Français</option>
-          <option value="3">Anglais</option>
-          <option value="4">Math</option>
-          <option value="5">SVT</option>
-          <option value="6">PC</option>
-          <option value="7">Philo</option>
-          <option value="4">Espagnol</option>
-          
-        </select>
-      </div>
-      <div class="col-12 text-end">
-        <button class="btn btn-primary">Afficher les notes</button>
-      </div>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-      <div class="card-header">
-        Notes pour : <span class="fw-bold">Seconde S2</span>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-striped table-bordered align-middle">
-            <thead>
-              <tr>
-                <th scope="col">Nom & Prénom</th>
-                <th scope="col"> Note Devoir N°1 </th>
-                <th scope="col">Note Devoir N°2</th>
-                <th scope="col">Note Examen</th>
-                <th scope="col">Moyenne</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td> Saliou Diouf</td>
-                <td><input type="number" class="form-control form-control-sm" value="15" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="18" min="0" max="20"></td>
-                <td><span class="fw-bold">13</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>DIARRA Fall</td>
-                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="14" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
-                <td><span class="fw-bold">12</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Aby Faye</td>
-                <td><input type="number" class="form-control form-control-sm" value="13" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
-                <td><span class="fw-bold">11.50</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Mamadou  Sarr</td>
-                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="13" min="0" max="20"></td>
-                <td><span class="fw-bold">12.97</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Khady Gaye</td>
-                <td><input type="number" class="form-control form-control-sm" value="15" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="14" min="0" max="20"></td>
-                <td><span class="fw-bold">11.25</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Khadidiatou Diaw</td>
-                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="16" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
-                <td><span class="fw-bold">11.75</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Awa Sarr</td>
-                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="14" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="13" min="0" max="20"></td>
-                <td><span class="fw-bold">13</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Babacar Mbaye</td>
-                <td><input type="number" class="form-control form-control-sm" value="11" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="12" min="0" max="20"></td>
-                <td><input type="number" class="form-control form-control-sm" value="10" min="0" max="20"></td>
-                <td><span class="fw-bold">10.75</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">Enregistrer</button>
-                </td>
-              </tr>
-              <tr>
-                
-              </tbody>
-          </table>
-        </div>
-        <div class="text-center mt-3">
-          <button class="btn btn-success btn-lg">Valider toutes les notes</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="alert alert-success d-flex align-items-center" role="alert">
-      <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
-      <div>
-        Notes enregistrées avec succès !
-      </div>
-    </div>
-
-  </div>
+    <ion-item *ngIf="notes.length === 0">
+      <ion-label>Aucune note trouvée. Ajoutez-en une !</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
