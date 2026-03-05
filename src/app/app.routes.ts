@@ -7,21 +7,14 @@ export const routes: Routes =  [
     redirectTo: 'login',
     pathMatch: 'full' 
   },
+  
   {
-    path: 'note',
-    loadComponent: () => import('./note/note.page').then( m => m.NotePage)
+    path: 'historiques',
+    loadComponent: () => import('./historiques/historiques.page').then( m => m.HistoriquesPage)
   },
   {
-    path: 'emploi',
-    loadComponent: () => import('./emploi/emploi.page').then( m => m.EmploiPage)
-  },
-  {
-    path: 'enseignant',
-    loadComponent: () => import('./enseignant/enseignant.page').then( m => m.EnseignantPage)
-  },
-  {
-    path: 'deliberation',
-    loadComponent: () => import('./deliberation/deliberation.page').then( m => m.DeliberationPage)
+    path: 'eno',
+    loadComponent: () => import('./eno/eno.page').then( m => m.EnoPage)
   },
   
 {
@@ -29,14 +22,11 @@ export const routes: Routes =  [
   loadComponent: () => import('./home/home.page').then(m => m.HomePage), 
 },
   {
-    path: 'etudiant', 
-    loadComponent: () => import('./etudiants/etudiants.page').then( m => m.EtudiantPage)
+    path: 'filiere', 
+    loadComponent: () => import('./filiere/filiere.page').then( m => m.FilierePage)
   },
  
-  {
-    path: 'missing',
-    loadComponent: () => import('./missing/missing.page').then( m => m.MissingPage)
-  },
+  
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
@@ -49,38 +39,26 @@ export const routes: Routes =  [
     path: 'profile',
     loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
   },
+  
+  
+  
   {
-    path: 'bulletin/:etudiantId',
-    loadComponent: () => import('./bulletin/bulletin.page').then( m => m.BulletinPage)
+    path: 'parc',
+    loadComponent: () => import('./parc/parc.page').then( m => m.ParcPage)
   },
   {
-    path: 'saisie-notes',
-    loadComponent: () => import('./saisie-notes/saisie-notes.page').then( m => m.SaisieNotesPage)
+    path: 'pedagogique',
+    loadComponent: () => import('./pedagogique/pedagogique.page').then( m => m.PedagogiquePage)
   },
-  /*{
-    path: 'enseignant-layout',
-    loadComponent: () => import('./enseignant-layout/enseignant-layout.page').then( m => m.EnseignantLayoutPage)
-  },*/
-  {
-    path: 'administration-layout',
-    loadComponent: () => import('./administration-layout/administration-layout.page').then( m => m.AdministrationLayoutPage)
-  },
-  {
-    path: 'messagerie',
-    loadComponent: () => import('./messagerie/messagerie.page').then( m => m.MessageriePage)
-  },
+
 
 
   /*{
     path: 'dashboard',
     loadComponent: () => import('./dashboard/dashboard.page').then( m => m.DashboardPage)
-  },
-*/
+  },*/
+
 ];
-
-export class AppRoutingModule {}
-
-
 
 
 

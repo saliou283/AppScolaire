@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-icon name="desktop-outline" class="header-icon"></ion-icon>
+    </ion-buttons>
+    <ion-title>Parc Informatique</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding main-bg">
+  <div class="welcome-banner">
+    <h1>Espace d'equipement et de collaboration de la cellule numérique  <span class="dot">.</span></h1>
+    <p>Mis à jour le 5 Février 2026 à 17:56</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <h2 class="section-title">  Activités Collaboratifs</h2>
+        
+        <ion-card class="glass-card" a href="pedagogique" button="true">
+          <div class="card-image-box">
+            <img src="assets/icon/col.jpg" alt="Postes de travail" />
+            
+          </div>
+          <ion-card-header>
+            <div class="title-row">
+              <ion-card-title> Ateliers pratiques</ion-card-title>
+              <ion-icon name="chevron-forward-circle" class="nav-arrow"></ion-icon>
+            </div>
+            <p class="card-subtitle">Accès aux différents Activités de la cellule numérique</p>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="action-footer">
+              <ion-button fill="clear" size="small" (click)="$event.stopPropagation()">
+                <ion-icon slot="start" name="list-outline"></ion-icon> Inventaire
+              </ion-button>
+              <ion-button fill="solid" size="small" color="primary" class="btn-action">
+                Réserver
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <h2 class="section-title">Espace de Travail Fixes</h2>
+        
+        <ion-card class="glass-card darker" a href="['/details-activite', 'formation']" button="true">
+          <div class="card-image-box">
+            <img src="assets/icon/imgeno.jpg" alt="Formation" />
+            <div class="overlay-tag">Formation</div>
+          </div>
+          <ion-card-header>
+            <div class="title-row">
+              <ion-card-title> Équipements</ion-card-title>
+              <ion-icon name="chevron-forward-circle" class="nav-arrow"></ion-icon>
+            </div>
+            <p class="card-subtitle">Dernière session : il y a 2h</p>
+          </ion-card-header>
+          <ion-card-content>
+             <p class="description">Accès aux modules de formation continue.</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="footer-info ion-text-center">
+    <p>Cellule Numérique • Version 2.4.0</p>
+  </div>
+</ion-content>

@@ -1,98 +1,130 @@
-<ion-content [fullscreen]="true" class="dashboard-main-content">
-  
-  <div class="header-actions">
-    <div class="search-container">
-      <ion-icon name="search-outline"></ion-icon>
-      <ion-searchbar placeholder="Rechercher ..." class="custom-search"></ion-searchbar>
-    </div>
-    <div class="header-icons">
-      <div class="server-status ion-hide-sm-down">
-        <span class="pulse-dot"></span>
-        <ion-label>Cellule Opérationnelle</ion-label>
+<ion-split-pane when="lg" contentId="main-content">
+
+  <ion-menu contentId="main-content" >
+    <ion-content class="sidebar-container">
+      <div class="sidebar-header">
+        <ion-avatar class="image-ronde">
+          <img src="assets/icon/CN..jpg" alt="logo">
+        </ion-avatar>
+        <h3>CELLULE NUMÉRIQUE</h3>
       </div>
-      <ion-icon name="notifications-outline" class="notif-icon"></ion-icon>
-      <div class="user-profile">
-        <img src="https://ui-avatars.com/api/?name=Admin+Cellule&background=3880ff&color=fff" alt="Avatar"/>
-      </div>
-    </div>
-  </div>
 
-  <div class="welcome-banner">
-    <div class="banner-content">
-    <span class="kicker">SYSTÈME NUMÉRIQUE DE LA CELLULE</span>
-      <h1>Bienvenus à la <span>cellule numérique ENO Diourbel!</span></h1>
-      <p>Suivi en temps réel des flux académiques : <strong>IDA, MIC, CD, AGN</strong>.</p>
-      <ion-button mode="ios" fill="solid" class="action-btn">
-        <ion-icon name="analytics-outline" slot="start"></ion-icon>
-        Rapport de Performance
-      </ion-button>
-    </div>
-  </div>
+      <ion-list lines="none">
+        <ion-item a href="/home" routerLinkActive="active-item">
+          <ion-icon slot="start" name="grid-outline"></ion-icon>
+          <ion-label>Tableau de Bord</ion-label>
+        </ion-item>
 
-  <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-col size="12" size-md="3">
-        <div class="stat-card blue">
-          <div class="icon-box"><ion-icon name="people"></ion-icon></div>
-          <div class="stat-info"><h3>433</h3><p>Étudiants</p></div>
-        </div>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-        <div class="stat-card green">
-          <div class="icon-box"><ion-icon name="rocket"></ion-icon></div>
-          <div class="stat-info"><h3>6</h3><p>Projets Actifs</p></div>
-        </div>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-        <div class="stat-card orange">
-          <div class="icon-box"><ion-icon name="ribbon"></ion-icon></div>
-          <div class="stat-info"><h3>10%</h3><p>Réussite Stage</p></div>
-        </div>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-        <div class="stat-card red">
-          <div class="icon-box"><ion-icon name="alert-circle"></ion-icon></div>
-          <div class="stat-info"><h3>05</h3><p>Alertes</p></div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-item a href="/filiere" routerLinkActive="active-item"> 
+          <ion-icon slot="start" name="folder-outline"></ion-icon>
+          <ion-label>Filières</ion-label>
+        </ion-item>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-lg="8">
-        <div class="content-panel">
-          <div class="panel-header">
-            <h2>Filières Sous Supervision</h2>
-          </div>
-          <ion-row>
-            <ion-col size="6" size-sm="3" *ngFor="let f of ['IDA', 'MIC', 'CD', 'AGN']">
-              <div class="filiere-card" [class]="f.toLowerCase()">
-                <div class="f-icon"></div>
-                <strong>{{f}}</strong>
+        <ion-item a href="/parc" routerLinkActive="active-item">
+          <ion-icon slot="start" name="desktop-outline"></ion-icon>
+          <ion-label>Parc </ion-label>
+        </ion-item>
+
+        <ion-item a href="/eno" routerLinkActive="active-item">
+          <ion-icon slot="start" name="list-outline"></ion-icon>
+          <ion-label>ENO</ion-label>
+        </ion-item>
+
+        <ion-item a href="/parc" routerLinkActive="active-item">
+          <ion-icon slot="start" name="desktop-outline"></ion-icon>
+          <ion-label>Parc Informatique</ion-label>
+        </ion-item>
+
+        
+
+        <ion-item a href="/historiques" routerLinkActive="active-item">
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-label>Historique</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    
+    <ion-header class="ion-no-border ion-hide-lg-up">
+      <ion-toolbar style="--background: #0f172a;">
+        <ion-buttons slot="start">
+          <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title color="light" style="font-size: 16px;">CELLULE NUMÉRIQUE</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="dashboard-bg">
+      <ion-grid class="ion-padding">
+        
+        <ion-row class="ion-align-items-center">
+          <ion-col size="10" size-md="11">
+            <ion-searchbar placeholder="Search" class="custom-search"></ion-searchbar>
+          </ion-col>
+          <ion-col size="2" size-md="1" class="header-icons">
+            <ion-icon name="notifications-outline" class="top-settings"></ion-icon>
+            <ion-avatar style="width: 38px; height: 30px;">
+              <img src="assets/icon/CN..jpg" alt="logo">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+
+        <h4 class="section-title">Tableau de Bord Général</h4>
+
+        <ion-row>
+          <ion-col size-lg="3" size-xs="6"><div class="card-stat c-blue"> IDA <br><small>Informatique Développement <br> d'Applications</small></div></ion-col>
+          <ion-col size-lg="3" size-xs="6"><div class="card-stat c-yellow"> <div>MIC <br><small>Multimédia Internet et Communication</small> </div></div></ion-col>
+          <ion-col size-lg="3" size-xs="6"><div class="card-stat c-green"> <div>CD <br><small>Communication Digitale</small> </div></div></ion-col>
+          <ion-col size-lg="3" size-xs="6"><div class="card-stat c-purple"> <div>AGN <br><small>Art Graphique et Numérique</small></div></div></ion-col>
+        </ion-row>
+
+        <ion-row class="ion-margin-top">
+          <ion-col size-lg="8" size-xs="12">
+            <h4 class="section-title">Bienvenu à la CELLULE NUMÉRIQUE de l'ENO de Diourbel</h4>
+            <div class="filiere-card border-green">
+              
+              <div>
+              <h4>  La Cellule Numérique de l'espace Numérique ouvert de Diourbel ouvre sa porte 
+                à l'ensemble  des étudiants des Filières IDA, MIC, CD et AGN. 
+              </h4>
               </div>
-            </ion-col>
-          </ion-row>
-        </div>
-      </ion-col>
+              
+            </div>
+          
+          </ion-col>
 
-      <ion-col size="12" size-lg="4">
-        <div class="content-panel">
-          <div class="panel-header">
-            <h2>Journal d'Activités</h2>
-          </div>
-          <div class="activity-feed">
-            <div class="feed-item">
-              <div class="dot blue"></div>
-              <div class="feed-text">Hackathon IDA lancé le 22 janvier 2026 à l'ENO de Diourbel</div>
+          <ion-col size-lg="4" size-xs="12">
+            <h4 class="section-title">Annonces Récents </h4>
+            <div class="annonce-card">
+              
+              <span>
+                <h4>Cours de renforcement de la P11 et P12 à partir de lundi prochain</h4>
+              </span>
             </div>
-            <div class="feed-item">
-              <div class="dot green"></div>
-              <div class="feed-text">Stages MIC validés</div>
-            </div>
-          </div>
+          </ion-col>
+        </ion-row>
+
+        <h4 class="section-title">Projets cours </h4>
+        <div class="table-wrapper">
+          <table class="dashboard-table">
+            <thead>
+              <tr><th>N°</th><th>Titre Projet</th><th>Filière</th><th>Coders</th><th>Statut</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td><td>Plateforme E-commerce</td><td>IDA</td><td>2</td><td class="text-green">Actif</td><td><ion-icon name="ellipsis-vertical"></ion-icon></td>
+              </tr>
+              <tr>
+                <td>2</td><td>Logo Cellule Numérique</td><td>MIC</td><td>1</td><td class="text-green">Actif</td><td><ion-icon name="ellipsis-vertical"></ion-icon></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+
+      </ion-grid>
+    </ion-content>
+  </div>
+
+</ion-split-pane>

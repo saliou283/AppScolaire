@@ -1,55 +1,42 @@
+import '@angular/compiler';
 import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { RouteReuseStrategy, provideRouter } from '@angular/router';
+import { RouteReuseStrategy, withComponentInputBinding } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import '@angular/compiler'; 
 
-
-// Configuration Firebase
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { environment } from './environments/environment';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 // Routes et Composant Principal
-import { routes } from './app/app.routes';
+import { routes } from './app/app.routes'; 
 import { AppComponent } from './app/app.component';
 
 // Icônes
 import { addIcons } from 'ionicons';
-import {
-  personCircleOutline, logInOutline, documentTextOutline, addCircleOutline, 
-  trashOutline, createOutline, eyeOutline, calendarOutline, personAddOutline, 
-  menuOutline, arrowBackOutline, school, timeOutline, gridOutline, 
-  peopleOutline, briefcaseOutline, receiptOutline, mailOutline, moonOutline,
-  notificationsOutline, searchOutline, wallet, warning, checkmarkCircle, people
-} from 'ionicons/icons';
+import { mailOutline, lockClosedOutline, logOutOutline, add } from 'ionicons/icons';
 
-// 1. Enregistrement global des icônes (pour éviter de le refaire partout)
+// 1. Gestion du mode production
+/*if (environment.production) {
+  enableProdMode();
+}*/
+
+// 2. Initialisation sélective des icônes
+// Évitez `* as allIcons` car cela brise le Tree Shaking et alourdit énormément votre bundle final.
 addIcons({
-  personCircleOutline, logInOutline, documentTextOutline, addCircleOutline, 
-  trashOutline, createOutline, eyeOutline, calendarOutline, personAddOutline, 
-  menuOutline, arrowBackOutline, school, timeOutline, gridOutline, 
-  peopleOutline, briefcaseOutline, receiptOutline, mailOutline, moonOutline,
-  notificationsOutline, searchOutline, wallet, warning, checkmarkCircle, people
+  'mail-outline': mailOutline,
+  'lock-closed-outline': lockClosedOutline,
+  'log-out-outline': logOutOutline,
+  'add': add
 });
 
-// 2. Gestion du mode production
-if (environment.production) {
-  enableProdMode();
-}
-
-// 3. Un SEUL et unique bootstrapApplication
-bootstrapApplication(AppComponent, {
+// 3. Bootstrapping
+bootstrapApplication(AppComponent, { 
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
-    provideRouter(routes),
+      {provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+      provideIonicAngular(),
+      provideRouter(routes),
+      provideHttpClient(),
+    
 
-    // Configuration Firebase & Firestore
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
   ],
 }).catch((err) => console.error(err));

@@ -1,39 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, EnvironmentInjector, inject } from '@angular/core';
+// Suppression de l'import compiler
 import { 
-  IonApp, IonRouterOutlet, IonIcon, IonList, IonContent, 
-  IonMenu, IonSplitPane,  IonLabel 
+  IonApp, 
+ // IonTabs, 
+//  IonTabBar, 
+//  IonTabButton, 
+  //IonIcon, 
+  //IonLabel, 
+  IonRouterOutlet 
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { 
-  gridOutline, schoolOutline, layersOutline, bookOutline, 
-  receiptOutline, chatbubblesOutline, searchOutline, notificationsOutline,
-  people, alertCircle, rocket, ribbon, homeOutline
-} from 'ionicons/icons';
+import { triangle, ellipse, square } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.html', // Nom de fichier standard
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
-    CommonModule, RouterLink, RouterLinkActive,
-    IonApp, IonRouterOutlet, IonIcon, IonList, IonContent, 
-    IonMenu, IonSplitPane,  IonLabel
-  ]
+    IonApp, 
+    //IonTabs, 
+   // IonTabBar, 
+   // IonTabButton, 
+    //IonIcon, 
+    //IonLabel, 
+    IonRouterOutlet
+  ],
 })
-export class AppComponent implements OnInit {
-  constructor() {
-    // On enregistre les icônes nécessaires
-    addIcons({ 
-      gridOutline, schoolOutline, layersOutline, bookOutline, 
-      receiptOutline, chatbubblesOutline, searchOutline, notificationsOutline,
-      people, alertCircle, rocket, ribbon, homeOutline
-    });
-  }
+export class AppComponent {
+  public environmentInjector = inject(EnvironmentInjector);
 
-  ngOnInit() {
-    console.log('App Shell chargée');
+  constructor() {
+    // Enregistrement des icônes
+    addIcons({ triangle, ellipse, square });
   }
 }

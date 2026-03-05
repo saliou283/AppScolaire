@@ -1,0 +1,210 @@
+// Variables de couleurs personnalisées
+:host {
+ --primary-blue: #3880ff;
+  --success-green: #2dd36f;
+  --accent-purple: #7044ff;
+  --soft-gray: #f4f5f8;
+}
+
+
+// Conteneur d'en-tête
+.header-container {
+  padding-top: 20px;
+ 
+  .main-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0;
+    color: #1a2a6c;
+  }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ion-color-medium);
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: blue;
+      border-radius: 50%;
+      margin-right: 6px;
+      box-shadow: 0 0 8px var(--ion-color-success);
+    }
+
+    .spacer { flex: 1; }
+   
+    ion-icon { margin-right: 4px; font-size: 16px; }
+  }
+}
+
+ .header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .server-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #e8f4fd;
+      padding: 6px 12px;
+      border-radius: 20px;
+      ion-label { font-size: 13px; font-weight: 600; color: var(--primary-blue); }
+    }
+
+    .notif-icon { font-size: 24px; color: #444; cursor: pointer; }
+
+    .user-profile img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-blue);
+    }
+  }
+
+  @keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 211, 111, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(45, 211, 111, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 211, 111, 0); }
+}
+
+th {
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding-bottom: 15px;
+}
+
+td {
+    padding: 12px 0;
+    font-size: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status.active {
+    color: var(--green);
+}
+
+.table-container {
+    background-color: var(--bg-cards);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+// Carte Hero avec dégradé
+.hero-container {
+  margin-top: 10px;
+
+  .hero-card {
+    background: linear-gradient(235deg, green, var(--accent-purple));
+    border-radius: 20px;
+    padding: 30px 20px;
+    color: #f3a007;
+    box-shadow: 0 10px 20px rgba(224, 226, 225, 0.89);
+    margin-bottom: 15px;
+
+    h2 { font-weight: 700; margin-bottom: 5px; }
+    p { opacity: 0.9; margin: 0; font-size: 14px; }
+  }
+
+  .tour-button {
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(221, 226, 220, 0.945);
+    font-weight: 600;
+  }
+}
+
+// Grille de défilement horizontal (Horizontal Scroll)
+.grid-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding-bottom: 10px;
+  scrollbar-width: none; // Cache la scrollbar sur Firefox
+ 
+  &::-webkit-scrollbar { display: none; } // Cache la scrollbar sur Chrome/Safari
+
+  .resource-item {
+    min-width: 60px;
+    background: #1a2a6c;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(160, 153, 153, 0.925);
+
+    .image-circle {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      padding: 4px;
+      border: 2px solid transparent;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+     
+      &.border-blue { border-color: #baf713; }
+      &.border-purple { border-color: #09ce19; }
+    }
+
+    h3 { 
+      color: #f4f5f8;
+      font-size: 15px; font-weight: 600; margin: 10px 0; }
+    ion-badge { margin-bottom: 10px; border-radius: 6px; }
+   
+    .btn-purple {
+      --background: #f3a007;
+      --color: #091f9c;
+    }
+  }
+}
+
+// Section Infos
+.section-info {
+  h4 { font-weight: 700; color: #1a2a6c; margin-bottom: 15px; }
+ 
+  .info-item {
+    --background: #1a2a6c;
+    --border-radius: 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+   
+    ion-icon { color: #f3a007; font-size: 20px; }
+  }
+}
+
+// Floating Action Button personnalisé
+.custom-fab {
+  margin-bottom: 20px;
+  ion-fab-button {
+    --background: var(--ion-color-dark);
+  }
+}
+
+// Footer et Tabs
+ion-tab-bar {
+  --border: none;
+  --background: #1e1e1e;
+  border-radius: 20px 20px 0 0;
+ 
+  ion-tab-button {
+    ion-icon { font-size: 24px; }
+   
+    &.tab-selected {
+      color: #f3a007;
+      ion-label { font-weight: 700; }
+    }
+  }
+}

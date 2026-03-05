@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nos Filières</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="intro-section">
+    <h2>Choisissez une filière</h2>
+    <p>Explorez les programmes et opportunités</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <div class="nav-card ida" a href="goToFiliere('ida')">
+          <div class="icon-circle">
+            <ion-icon name="code-slash-outline"></ion-icon>
+          </div>
+          <h3>IDA</h3>
+          <p>Développement</p>
+          <ion-icon name="arrow-forward-circle" class="arrow"></ion-icon>
+        </div> 
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="nav-card mic" (click)="goToFiliere('mic')">
+          <div class="icon-circle">
+            <ion-icon name="layers-outline"></ion-icon>
+          </div>
+          <h3>MIC</h3>
+          <p>Multimédia</p>
+          <ion-icon name="arrow-forward-circle" class="arrow"></ion-icon>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="nav-card cd" (click)="goToFiliere('cd')">
+          <div class="icon-circle">
+            <ion-icon name="megaphone-outline"></ion-icon>
+          </div>
+          <h3>CD</h3>
+          <p>Communication</p> 
+          <ion-icon name="arrow-forward-circle" class="arrow"></ion-icon>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="nav-card agn" (click)="goToFiliere('agn')">
+          <div class="icon-circle">
+            <ion-icon name="color-palette-outline"></ion-icon>
+          </div>
+          <h3>AGN</h3>
+          <p>Arts Graphiques</p>
+          <ion-icon name="arrow-forward-circle" class="arrow"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

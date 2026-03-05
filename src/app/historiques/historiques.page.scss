@@ -1,0 +1,107 @@
+.hero-header {
+  height: 200px;
+  background: linear-gradient(135deg, #3880ff, #1a2a6c);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  h1 { font-weight: 800; margin: 0; }
+}
+
+.president-card-horizontal {
+  margin: 15px 5px 25px 5px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #ffffff;
+  border: none;
+
+  .image-wrapper {
+    width: 100%;
+    height: 380px; // Hauteur légèrement réduite pour l'équilibre
+    img {
+      width: 150%;
+      height: 200%;
+      object-fit: cover; // Très important pour ne pas déformer le visage
+      display: block;
+    }
+  }
+
+  .content-wrapper {
+    padding: 10px 12px;
+
+    .badge-row {
+      margin-bottom: 10px;
+      ion-badge { 
+        font-size: 0.6rem; 
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 20px;
+      }
+    }
+
+    .name {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0;
+      color: #1a2a6c; // Couleur sombre élégante
+    }
+
+    .role {
+      font-size: 0.7rem;
+      color: var(--ion-color-primary);
+      margin: 2px 0 6px 0;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .description {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #272525;
+      margin: 0;
+      font-size: 20px;
+    }
+  }
+}
+
+.main-content {
+  margin-top: -25px;
+  background: #fff;
+  border-radius: 25px 25px 0 0;
+  padding: 15px;
+  position: relative;
+}
+
+// Style de la carte Split
+.president-card-horizontal {
+  margin: 0 0 20px 0;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: none;
+
+  .image-col {
+    padding: 0;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 220px; // Ajustez la hauteur selon votre photo
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .info-col {
+    padding: 15px;
+    
+    h2 { font-weight: 800; margin: 5px 0; font-size: 1.2rem; color: #222; }
+    h3 { font-size: 0.85rem; color: var(--ion-color-medium); margin-bottom: 10px; }
+    p { font-size: 0.8rem; line-height: 1.4; color: #444; margin: 0; }
+    .badge-row { margin-bottom: 5px; }
+  }
+}
+
